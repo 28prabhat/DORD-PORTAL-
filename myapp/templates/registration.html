@@ -1,0 +1,247 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0f7fa;
+            background-size: cover;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background: #0278bdd7;
+            width: 100%;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+            box-sizing: border-box;
+        }
+
+        .header h1 {
+            margin: 0;
+        }
+
+        .iitk {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .iitk img {
+            margin-left: 15px;
+            height: 80px;
+            width: 80px;
+        }
+
+        .container {
+            width: 80%;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .form-container {
+            background-color: #fff5d7;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            color: #0096d6;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        label {
+            display: block;
+            margin: 10px 0px 5px 0px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        textarea {
+            width: 50%;
+        }
+
+        input[type="password"]{
+            margin-bottom: 15px;
+        }
+        
+        .gender-options {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+
+        .gender-options input[type="radio"] {
+            margin-right: 5px;
+        }
+
+        .form-buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+        }
+
+        button a{
+            color: white;
+            text-decoration: none;
+        }
+
+        button:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .reset {
+            background-color: #ffcc00;
+            color: white;
+        }
+
+        .submit {
+            background-color: #3399ff;
+            color: white;
+        }
+    </style>
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            alert('Form submitted!');
+        });
+    </script>
+</head>
+
+<body>
+    <div class="header">
+        <h1>Office of Research & Development</h1>
+        <div class="iitk">
+            <h2>Indian Institute of Technology Kanpur</h2>
+            <img src="{% static 'Registration/iitk logo white.png' %}" alt="IITK Logo White">
+        </div>
+    </div>
+    <div class="container">
+        <div class="form-container">
+            <h2>USER REGISTRATION FORM</h2>
+            <!-- <form id="registrationForm" method="post" action="{% url 'registration' %}">
+                {% csrf_token %}
+                {{form.as_p}}
+            </form> -->
+            <form id="registrationForm" method="post" action="{% url 'registration' %}">
+                {% csrf_token %}
+                <label for="userType">User Type:</label>
+                <select id="userType" name="user_type"> <!-- Changed to user_type -->
+                    <option value="admin">Admin (DORD)</option>
+                    <option value="dean">Dean</option>
+                    <option value="staff">Staff</option>
+                    <option value="faculty">Faculty of IITK</option>
+                    <option value="researchScholar">Research Scholars of IITK</option>
+                    <option value="sectionB">Section B companies</option>
+                    <option value="siicCompanies">SIIC Incubated companies</option>
+                    <option value="projectStaff">Project Staff</option>
+                </select>
+            
+                <label for="dordNumber">DORD Number:</label>
+                <input type="text" id="dordNumber" name="dord_number"> <!-- Changed to dord_number -->
+            
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name">
+            
+                <label for="firmExpertise">Description of the Firm/Expertise:</label>
+                <textarea id="firmExpertise" name="firm_expertise" rows="3"></textarea> <!-- Changed to firm_expertise -->
+            
+                <label for="sector">Sector Expertise:</label>
+                <select id="sector" name="sector_expertise"> <!-- Changed to sector_expertise -->
+                    <option value="ict">ICT</option>
+                    <option value="education">Education</option>
+                    <!-- Add more sectors as needed -->
+                </select>
+            
+                <label for="subsector">Sub-Sector Expertise:</label>
+                <input type="text" id="subsector" name="subsector_expertise"> <!-- Changed to subsector_expertise -->
+            
+                <label for="pastProjects">Past Projects:</label>
+                <textarea id="pastProjects" name="past_projects" rows="5"></textarea> <!-- Changed to past_projects -->
+            
+                <label for="gender">Gender:</label>
+                <div class="gender-options">
+                    <input type="radio" id="female" name="gender" value="female">
+                    <label for="female">Female</label>
+                    <input type="radio" id="male" name="gender" value="male">
+                    <label for="male">Male</label>
+                    <input type="radio" id="other" name="gender" value="other">
+                    <label for="other">Other</label>
+                </div>
+            
+                <label for="state">State:</label>
+                <input type="text" id="state" name="state">
+            
+                <label for="city">City:</label>
+                <input type="text" id="city" name="city">
+            
+                <label for="pincode">Pincode:</label>
+                <input type="text" id="pincode" name="pincode">
+            
+                <label for="course">Course:</label>
+                <input type="text" id="course" name="course">
+            
+                <label for="email">Email ID:</label>
+                <input type="email" id="email" name="email">
+            
+                <div class="form-buttons">
+                    <button type="reset" class="reset">RESET ALL</button>
+                    <button type="submit" class="submit">SUBMIT FORM</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
+

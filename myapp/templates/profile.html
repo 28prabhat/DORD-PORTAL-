@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile & Edit Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('background.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        .App-header {
+            background-color: #63a0fa;
+            height: 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            color: white;
+            box-sizing: border-box;
+        }
+
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .logoimage {
+            max-width: 60px;
+            max-height: 60px;
+        }
+
+        .sign-in {
+            background-color: transparent;
+            border: 2px solid white;
+            color: white;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 1rem;
+            border-radius: 5px;
+        }
+
+        .sign-in a{
+            color: white;
+            text-decoration: none;
+        }
+
+        header {
+            background-color: #0073e6;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        #about {
+            margin-top: 100px;
+        }
+
+        section {
+            background-color: white;
+            margin: 20px auto;
+            padding: 20px;
+            max-width: 800px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 00px;
+            /* Add this to create space for the fixed header */
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input,
+        textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #0073e6;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #005bb5;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .project-item,
+        .sector-item {
+            cursor: pointer;
+        }
+
+        .project-item:hover,
+        .sector-item:hover {
+            background-color: #f0f0f0;
+        }
+
+        @media(max-width:500) {
+            .logoimage {
+                display: none;
+            }
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const projectModal = document.getElementById('project-modal');
+            const addProjectModal = document.getElementById('add-project-modal');
+            const addSectorModal = document.getElementById('add-sector-modal');
+            const closeModalElements = document.querySelectorAll('.close');
+            const projectDetails = document.getElementById('project-details');
+            const addProjectButton = document.getElementById('add-project');
+            const addSectorButton = document.getElementById('add-sector');
+            const newProjectForm = document.getElementById('new-project-form');
+            const newSectorForm = document.getElementById('new-sector-form');
+
+            const projects = {
+                1: {
+                    name: 'Project 1',
+                    country: 'India',
+                    state: 'Delhi',
+                    startDate: '2024-06-06',
+                    endDate: '2025-03-05',
+                    client: 'ABC',
+                    description: 'Project 1 description...'
+                },
+                2: {
+                    name: 'Project 2',
+                    country: 'India',
+                    state: 'Karnataka',
+                    startDate: '2023-05-01',
+                    endDate: '2023-12-15',
+                    client: 'DEF',
+                    description: 'Project 2 description...'
+                },
+                3: {
+                    name: 'Project 3',
+                    country: 'India',
+                    state: 'Maharashtra',
+                    startDate: '2022-01-10',
+                    endDate: '2022-10-25',
+                    client: 'XYZ',
+                    description: 'Project 3 description...'
+                },
+                4: {
+                    name: 'Project 4',
+                    country: 'India',
+                    state: 'Tamil Nadu',
+                    startDate: '2021-07-15',
+                    endDate: '2022-04-05',
+                    client: 'GHI',
+                    description: 'Project 4 description...'
+                },
+                5: {
+                    name: 'Project 5',
+                    country: 'India',
+                    state: 'West Bengal',
+                    startDate: '2020-09-01',
+                    endDate: '2021-06-20',
+                    client: 'JKL',
+                    description: 'Project 5 description...'
+                },
+            };
+
+            document.querySelectorAll('.project-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    const projectId = item.getAttribute('data-project-id');
+                    const project = projects[projectId];
+                    projectDetails.innerHTML = `
+                <p><strong>Name:</strong> ${project.name}</p>
+                <p><strong>Country:</strong> ${project.country}</p>
+                <p><strong>State:</strong> ${project.state}</p>
+                <p><strong>Start Date:</strong> ${project.startDate}</p>
+                <p><strong>End Date:</strong> ${project.endDate}</p>
+                <p><strong>Client:</strong> ${project.client}</p>
+                <p><strong>Description:</strong> ${project.description}</p>
+            `;
+                    projectModal.style.display = 'block';
+                });
+            });
+
+            closeModalElements.forEach(close => {
+                close.addEventListener('click', () => {
+                    projectModal.style.display = 'none';
+                    addProjectModal.style.display = 'none';
+                    addSectorModal.style.display = 'none';
+                });
+            });
+
+            addProjectButton.addEventListener('click', () => {
+                addProjectModal.style.display = 'block';
+            });
+
+            newProjectForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+
+                const newProject = {
+                    name: document.getElementById('project-name').value,
+                    country: document.getElementById('project-country').value,
+                    state: document.getElementById('project-state').value,
+                    startDate: document.getElementById('project-start-date').value,
+                    endDate: document.getElementById('project-end-date').value,
+                    client: document.getElementById('project-client').value,
+                    description: document.getElementById('project-description').value,
+                };
+
+                const newProjectId = Object.keys(projects).length + 1;
+                projects[newProjectId] = newProject;
+
+                const newProjectItem = document.createElement('div');
+                newProjectItem.classList.add('project-item');
+                newProjectItem.setAttribute('data-project-id', newProjectId);
+                newProjectItem.innerHTML = `
+            <h4>${newProject.name}</h4>
+            <p>Start Date: ${newProject.startDate}</p>
+            <p>End Date: ${newProject.endDate}</p>
+        `;
+
+                newProjectItem.addEventListener('click', () => {
+                    projectDetails.innerHTML = `
+                <p><strong>Name:</strong> ${newProject.name}</p>
+                <p><strong>Country:</strong> ${newProject.country}</p>
+                <p><strong>State:</strong> ${newProject.state}</p>
+                <p><strong>Start Date:</strong> ${newProject.startDate}</p>
+                <p><strong>End Date:</strong> ${newProject.endDate}</p>
+                <p><strong>Client:</strong> ${newProject.client}</p>
+                <p><strong>Description:</strong> ${newProject.description}</p>
+            `;
+                    projectModal.style.display = 'block';
+                });
+
+                document.querySelector('.project-list').appendChild(newProjectItem);
+                addProjectModal.style.display = 'none';
+            });
+
+            addSectorButton.addEventListener('click', () => {
+                addSectorModal.style.display = 'block';
+            });
+
+            newSectorForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+
+                const sectorName = document.getElementById('sector-name').value;
+                const subSectorName = document.getElementById('sub-sector-name').value;
+
+                const newSectorItem = document.createElement('div');
+                newSectorItem.classList.add('sector-item');
+                newSectorItem.innerHTML = `
+            <h4>${sectorName}</h4>
+            <p>${subSectorName}</p>
+        `;
+
+                document.querySelector('.sector-list').appendChild(newSectorItem);
+                addSectorModal.style.display = 'none';
+            });
+        });
+
+    </script>
+</head>
+
+<body>
+    <header class="App-header">
+        <img src="iitklogo.png" alt="IIT Kanpur Logo" class="logoimage">
+        <div class="logo">Office of Research and Development IIT Kanpur</div>
+        <button class="sign-in"><a href="{% url 'dashboard' %}">Dashboard</a></button>
+    </header>
+
+    <section id="about">
+        <h3>About</h3>
+        <form>
+            <label for="dord-id">DORD ID</label>
+            <input type="text" id="dord-id" name="dord-id" value="{{ user_registration.dord_number }}" readonly>
+
+            <label for="full-name">Full Name</label>
+            <input type="text" id="full-name" name="full-name" value="{{ user_registration.name }}" readonly>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" value="{{ user_registration.email }}" readonly>
+
+            <label for="description">Description</label>
+            <textarea id="description" name="description" maxlength="100"
+                readonly>Lorem ipsum dolor sit amet...</textarea>
+        </form>
+    </section>
+
+    <!-- <section id="sector-expertise">
+        <h3>Sector Expertise</h3>
+        <div class="sector-list">
+            Example sector -->
+          <!--   <div class="sector-item">
+                <h4>ICT</h4>
+                <p>Data Science</p>
+            </div>
+            <div class="sector-item">
+                <h4>ICT</h4>
+                <p>Training</p>
+            </div>
+            <div class="sector-item">
+                <h4>Education</h4>
+                <p>Non-formal Education</p>
+            </div>
+        </div>
+        <button id="add-sector">+ Add Sectors</button>
+    </section>
+
+    <section id="past-projects">
+        <h3>Past Projects</h3>
+        <div class="project-list">
+             Example project names -->
+          <!--  <div class="project-item" data-project-id="1">
+                <h4>Project 1</h4>
+                <p>Start Date: 2024-06-06</p>
+                <p>End Date: 2025-03-05</p>
+            </div>
+            <div class="project-item" data-project-id="2">
+                <h4>Project 2</h4>
+                <p>Start Date: 2023-05-01</p>
+                <p>End Date: 2023-12-15</p>
+            </div>
+            <div class="project-item" data-project-id="3">
+                <h4>Project 3</h4>
+                <p>Start Date: 2022-01-10</p>
+                <p>End Date: 2022-10-25</p>
+            </div>
+            <div class="project-item" data-project-id="4">
+                <h4>Project 4</h4>
+                <p>Start Date: 2021-07-15</p>
+                <p>End Date: 2022-04-05</p>
+            </div>
+            <div class="project-item" data-project-id="5">
+                <h4>Project 5</h4>
+                <p>Start Date: 2020-09-01</p>
+                <p>End Date: 2021-06-20</p>
+            </div>
+        </div>
+        <button id="add-project">+ Add Projects</button>
+    </section>
+
+   
+    <div id="project-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h4>Project Details</h4>
+            <p id="project-details"></p>
+        </div>
+    </div>
+
+   
+    <div id="add-project-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h4>Add New Project</h4>
+            <form id="new-project-form">
+                <label for="project-name">Project Name</label>
+                <input type="text" id="project-name" name="project-name" required>
+
+                <label for="project-country">Country</label>
+                <input type="text" id="project-country" name="project-country" required>
+
+                <label for="project-state">State</label>
+                <input type="text" id="project-state" name="project-state" required>
+
+                <label for="project-start-date">Start Date</label>
+                <input type="date" id="project-start-date" name="project-start-date" required>
+
+                <label for="project-end-date">End Date</label>
+                <input type="date" id="project-end-date" name="project-end-date" required>
+
+                <label for="project-client">Client</label>
+                <input type="text" id="project-client" name="project-client" required>
+
+                <label for="project-description">Description</label>
+                <textarea id="project-description" name="project-description" required></textarea>
+
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+
+  
+    <div id="add-sector-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h4>Add New Sector</h4>
+            <form id="new-sector-form">
+                <label for="sector-name">Sector Name</label>
+                <input type="text" id="sector-name" name="sector-name" required>
+
+                <label for="sub-sector-name">Sub-sector Name</label>
+                <input type="text" id="sub-sector-name" name="sub-sector-name" required>
+
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div> -->
+</body>
+
+</html>

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Project Cards</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0f7fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background: #0278bdd7;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .header h1 {
+            margin: 0;
+        }
+
+        .iitk {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .iitk img {
+            margin-left: 15px;
+            height: 80px;
+            width: 80px;
+        }
+
+        .navbar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: center;
+            margin: 20px 100px;
+        }
+
+        .item {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: black;
+        }
+
+        .item svg {
+            width: 30px;
+            height: 30px;
+            flex-shrink: 0;
+            margin: 5px;
+        }
+
+        .search-bar {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .search-bar input {
+            width: 300px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 50px;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+            padding: 20px;
+            width: 400px;
+            box-sizing: border-box;
+        }
+
+        .card h2 {
+            margin: auto;
+            text-align: center;
+        }
+
+        .card h4 {
+            text-align: center;
+        }
+
+        .card .tags {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 15px;
+        }
+
+        .tag {
+            background: #F0F0F0;
+            border: 1px solid;
+            border-radius: 20px;
+            padding: 5px 10px;
+            font-size: 0.9em;
+            box-shadow: 1px 4px 10px rgba(0, 0, 0, 0.1);
+            text-decoration: none;
+            color: black;
+        }
+
+        .card p {
+            margin: 15px 0;
+        }
+
+        .logout {
+            background: #f44336;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+
+        .card .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-top: 50px;
+
+            gap: 15px;
+        }
+
+        .btn {
+            background: #0277bd;
+            border: none;
+            border-radius: 25px;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            width: 40%;
+            max-width: 120px;
+
+        }
+
+        .btn:first-child {
+            background: #90E0EF;
+            color: #094A84;
+        }
+
+        .btn:hover {
+            background: #01579b;
+        }
+
+        .btn:first-child:hover {
+            background-color: #5fcbdf;
+        }
+        .btn btn-primary{
+            color: #f44336;
+        }
+
+
+
+        @media (max-width: 768px) {
+            .card {
+                width: 100%;
+            }
+
+            .search-bar input {
+                width: 80%;
+            }
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="header">
+        <h1>Office of Research & Development</h1>
+        <div class="iitk">
+            <h2>Indian Institute of Technology Kanpur</h2>
+            <img src="iitk logo white.png" alt="iitk-logo-white">
+        </div>
+    </div>
+
+    <div class="navbar">
+        <a href="Filter.html" class="item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="40" viewBox="0 0 50 40" fill="none">
+                <g clip-path="url(#clip0_7_21)">
+                    <path d="M0 0V8H50V0H0ZM0 16V24H50V16H0ZM0 32V40H50V32H0Z" fill="#454545" />
+                </g>
+                <defs>
+                    <clipPath id="clip0_7_21">
+                        <rect width="50" height="40" fill="white" />
+                    </clipPath>
+                </defs>
+            </svg>
+        </a>
+        <div class="search-bar">
+            <input type="text" placeholder="Search Projects">
+        </div>
+        <a href="#" class="item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+                <path
+                    d="M31.6667 30L35 31.6667V4.99999C35 3.16666 33.5 1.66666 31.6667 1.66666H14.9833C13.15 1.66666 11.6667 3.16666 11.6667 4.99999H28.3333C30.1667 4.99999 31.6667 6.49999 31.6667 8.33332V30ZM25 8.33332H8.33333C6.5 8.33332 5 9.83332 5 11.6667V38.3333L16.6667 33.3333L28.3333 38.3333V11.6667C28.3333 9.83332 26.8333 8.33332 25 8.33332Z"
+                    fill="black" />
+            </svg>
+            Bookmarked Projects
+        </a>
+        <a href="#" class="item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+                <g clip-path="url(#clip0_34_125)">
+                    <path
+                        d="M11.875 17.5C11.3777 17.5 10.9008 17.6975 10.5492 18.0492C10.1975 18.4008 10 18.8777 10 19.375C10 19.8723 10.1975 20.3492 10.5492 20.7008C10.9008 21.0525 11.3777 21.25 11.875 21.25H23.125C23.6223 21.25 24.0992 21.0525 24.4508 20.7008C24.8025 20.3492 25 19.8723 25 19.375C25 18.8777 24.8025 18.4008 24.4508 18.0492C24.0992 17.6975 23.6223 17.5 23.125 17.5H11.875ZM12.5 11.875C12.5 11.3777 12.6975 10.9008 13.0492 10.5492C13.4008 10.1975 13.8777 10 14.375 10H28.125C28.6223 10 29.0992 10.1975 29.4508 10.5492C29.8025 10.9008 30 11.3777 30 11.875C30 12.3723 29.8025 12.8492 29.4508 13.2008C29.0992 13.5525 28.6223 13.75 28.125 13.75H14.375C13.8777 13.75 13.4008 13.5525 13.0492 13.2008C12.6975 12.8492 12.5 12.3723 12.5 11.875ZM16.875 25C16.3777 25 15.9008 25.1975 15.5492 25.5492C15.1975 25.9008 15 26.3777 15 26.875C15 27.3723 15.1975 27.8492 15.5492 28.2008C15.9008 28.5525 16.3777 28.75 16.875 28.75H28.125C28.6223 28.75 29.0992 28.5525 29.4508 28.2008C29.8025 27.8492 30 27.3723 30 26.875C30 26.3777 29.8025 25.9008 29.4508 25.5492C29.0992 25.1975 28.6223 25 28.125 25H16.875Z"
+                        fill="black" />
+                    <path
+                        d="M0 4.375C0 1.96 1.96 0 4.375 0H35.625C38.04 0 40 1.96 40 4.375V35.625C40 36.7853 39.5391 37.8981 38.7186 38.7186C37.8981 39.5391 36.7853 40 35.625 40H4.375C3.21468 40 2.10188 39.5391 1.28141 38.7186C0.460936 37.8981 0 36.7853 0 35.625L0 4.375ZM4.375 3.75C4.20924 3.75 4.05027 3.81585 3.93306 3.93306C3.81585 4.05027 3.75 4.20924 3.75 4.375V35.625C3.75 35.97 4.03 36.25 4.375 36.25H35.625C35.7908 36.25 35.9497 36.1842 36.0669 36.0669C36.1842 35.9497 36.25 35.7908 36.25 35.625V4.375C36.25 4.20924 36.1842 4.05027 36.0669 3.93306C35.9497 3.81585 35.7908 3.75 35.625 3.75H4.375Z"
+                        fill="black" />
+                </g>
+                <defs>
+                    <clipPath id="clip0_34_125">
+                        <rect width="40" height="40" fill="white" />
+                    </clipPath>
+                </defs>
+            </svg>
+            My Projects
+        </a>
+        <a href="#" class="item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+                <path
+                    d="M14.4083 34.1667C14.7684 35.3699 15.5069 36.4248 16.5143 37.1749C17.5217 37.9249 18.7441 38.33 20 38.33C21.2559 38.33 22.4783 37.9249 23.4857 37.1749C24.4931 36.4248 25.2316 35.3699 25.5917 34.1667H14.4083ZM5 32.5H35V27.5L31.6667 22.5V14.1667C31.6667 12.6346 31.3649 11.1175 30.7786 9.70203C30.1923 8.28656 29.3329 7.00044 28.2496 5.91709C27.1662 4.83374 25.8801 3.97438 24.4646 3.38807C23.0492 2.80177 21.5321 2.5 20 2.5C18.4679 2.5 16.9508 2.80177 15.5354 3.38807C14.1199 3.97438 12.8338 4.83374 11.7504 5.91709C10.6671 7.00044 9.80771 8.28656 9.22141 9.70203C8.6351 11.1175 8.33333 12.6346 8.33333 14.1667V22.5L5 27.5V32.5Z"
+                    fill="black" />
+            </svg>
+        </a>
+        <a href="{% url 'profile' %}" class="item" , class="user">
+            {{ user.username }}
+            <svg xmlns="http://www.w3.org/2000/svg" width="43" height="43" viewBox="0 0 43 43" fill="none">
+                <path
+                    d="M28.9147 22.7052C30.9921 21.0708 32.5084 18.8295 33.2527 16.2932C33.9969 13.757 33.9321 11.0517 33.0673 8.55397C32.2026 6.0562 30.5807 3.89009 28.4275 2.35698C26.2743 0.823865 23.6968 0 21.0536 0C18.4103 0 15.8328 0.823865 13.6796 2.35698C11.5264 3.89009 9.90459 6.0562 9.03979 8.55397C8.175 11.0517 8.11023 13.757 8.85449 16.2932C9.59876 18.8295 11.115 21.0708 13.1924 22.7052C9.6328 24.1313 6.52692 26.4967 4.20588 29.5491C1.88484 32.6015 0.435637 36.2266 0.0127809 40.0379C-0.0178276 40.3162 0.00667113 40.5977 0.0848778 40.8665C0.163084 41.1353 0.293468 41.3861 0.468583 41.6045C0.822245 42.0456 1.33664 42.3281 1.89861 42.3899C2.46058 42.4517 3.02409 42.2878 3.46518 41.9341C3.90626 41.5804 4.18879 41.066 4.2506 40.5041C4.71588 36.362 6.69093 32.5366 9.79838 29.7586C12.9058 26.9807 16.9278 25.445 21.096 25.445C25.2641 25.445 29.2861 26.9807 32.3935 29.7586C35.501 32.5366 37.476 36.362 37.9413 40.5041C37.9989 41.0247 38.2473 41.5056 38.6386 41.8538C39.0299 42.2021 39.5364 42.3931 40.0602 42.3899H40.2933C40.8487 42.326 41.3564 42.0451 41.7057 41.6085C42.0549 41.172 42.2175 40.615 42.1579 40.0591C41.7331 36.237 40.2761 32.6026 37.9431 29.5455C35.6101 26.4883 32.4892 24.1238 28.9147 22.7052ZM21.0536 21.2008C19.3772 21.2008 17.7386 20.7037 16.3448 19.7724C14.9509 18.841 13.8646 17.5173 13.2231 15.9686C12.5816 14.4199 12.4137 12.7157 12.7408 11.0716C13.0678 9.42749 13.875 7.91727 15.0604 6.73193C16.2457 5.54659 17.7559 4.73936 19.4001 4.41233C21.0442 4.08529 22.7483 4.25314 24.2971 4.89464C25.8458 5.53614 27.1695 6.62249 28.1008 8.0163C29.0321 9.41011 29.5292 11.0488 29.5292 12.7251C29.5292 14.973 28.6363 17.1288 27.0468 18.7183C25.4573 20.3078 23.3015 21.2008 21.0536 21.2008Z"
+                    fill="black" />
+            </svg>
+        </a>
+        <a href="{% url 'dashboard' %}" class="btn btn-primary">logout</a>
+    </div>
+
+  
+   
+{% block content %}
+<div class="container">
+    <h1>Project Dashboard</h1>
+    <a href="{% url 'add-project' %}" class="btn btn-primary mb-3">Add New Project</a>
+    <div class="row">
+        {% for project in projects %}
+        <div class="card col-md-4 mb-3">
+            <div class="card-body">
+                <div class="tag">
+                    <h5 class="card-title">{{ project.title }}</h5>
+                     <h6 class="card-subtitle mb-2 text-muted">Supervisor: {{ project.supervisor }}</h6>
+
+                </div>
+                <p class="card-text">Country: {{ project.country }}</p>
+                <p class="card-text">Open to: {{ project.open_to }}</p>
+                <p class="card-text">Duration: {{ project.duration }}</p>
+                <p class="card-text">Sponsor: {{ project.sponsor }}</p>
+                <p class="card-text">Deadline: {{ project.deadline }}</p>
+                <p class="card-text">Budget: {{ project.budget }}</p>
+                <a href="{% url 'projectdetails' %}" class="card-link">Details</a> 
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+
+
+   <script>
+        document.getElementById("logoutButton").onclick = function () {
+            window.location.href = "landing.html";
+        };
+    </script>  
+
+
+</body>
+
+</html>

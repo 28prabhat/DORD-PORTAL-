@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Details</title>
+    <style>
+        /* styles.css */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: #0278bdd7;
+            width: 100%;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+            box-sizing: border-box;
+        }
+
+        .header h1 {
+            margin: 0;
+        }
+
+        .iitk {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .iitk img {
+            margin-left: 15px;
+            height: 80px;
+            width: 80px;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .project-details {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .project-info {
+            flex: 1;
+            padding-right: 20px;
+        }
+
+        .project-info h3,
+        .tags h3 {
+            background-color: #e8dfff;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-description {
+            flex: 2;
+            background-color: #fff5d7;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .tags {
+            margin-top: 20px;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: space-around;
+            background-color: #f1f1f1;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .tablink {
+            background-color: #d1f7e9;
+            border: none;
+            outline: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            flex-grow: 1;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        .tablink:hover {
+            background-color: #b8e1d1;
+        }
+
+        .tablink.active {
+            background-color: #b8e1d1;
+        }
+
+        .tabcontent {
+            display: none;
+            padding: 20px;
+            border-radius: 5px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        #Basic ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        #Basic ul li {
+            background-color: #d1f7e9;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease;
+        }
+
+        button:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .bookmark {
+            background-color: #3399ff;
+            color: black;
+        }
+
+        .contact {
+
+            background-color: #ffcc00;
+            color: black;
+        }
+
+        .apply {
+            background-color: #ff3300;
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1>Office of Research & Development</h1>
+        <div class="iitk">
+            <h2>Indian Institute of Technology Kanpur</h2>
+            <img src="iitk logo white.png" alt="iitk-logo-white">
+        </div>
+    </div>
+    <div class="container">
+        <div class="content">
+            <div class="project-details">
+                <div class="project-info">
+                    <h3>Project Details</h3>
+                    <p><strong>Project Title:</strong> Development of Indian research laboratory management software</p>
+                    <p><strong>Serial No.:</strong> OX7456</p>
+                    <p><strong>Department/Organization:</strong> Electrical Engineering</p>
+                    <p><strong>Country:</strong> India</p>
+                </div>
+                <div class="project-description">
+                    <p>Managing research labs in India contains several unique tasks related to purchase process in
+                        addition to the usual tasks. The work will involve development of a large web app including
+                        authentication mechanisms, automation, role management and enforcement, student/scientist
+                        management, work management, inventory, analytics, predictive processes, document management,
+                        integration with external processes through APIs or document generation. Skills needed: SQL (the
+                        project will use PostgreSQL), and Python as the application language. This is a long term
+                        business application development project that will need 2 students with at least a year's
+                        commitment.</p>
+                </div>
+            </div>
+            <div class="tags">
+                <div class="tabs">
+                    <button class="tablink active" onclick="openTab(event, 'Basic')">Basic</button>
+                    <button class="tablink" onclick="openTab(event, 'Eligibility')">Eligibility</button>
+                    <button class="tablink" onclick="openTab(event, 'More')">More</button>
+                </div>
+                <div id="Basic" class="tabcontent" style="display: block;">
+                    <h3>Tags</h3>
+                    <ul>
+                        <li><strong>Vacancy:</strong> 10</li>
+                        <li><strong>Duration:</strong> 3 Months</li>
+                        <li><strong>Release Date:</strong> 10 June 2024</li>
+                        <li><strong>Deadline:</strong> 10 September 2024</li>
+                        <li><strong>Budget:</strong> 5 lakhs</li>
+                    </ul>
+                </div>
+                <div id="Eligibility" class="tabcontent" style="display: block;">
+                    <h3>Eligibility</h3>
+                    <ul>
+                        <li><strong>Open to:</strong> BT II/III/IV Year (CSE/EE/MTH)</li>
+                        <li><strong>Expertise:</strong> ML/NLP/C/C++/Python/Java/Javascript</li>
+
+                    </ul>
+
+                </div>
+                <div id="More" class="tabcontent">
+                    <h3>More</h3>
+                    <p>Additional information about the project.</p>
+                </div>
+                <div class="buttons">
+                    <button class="bookmark">BOOKMARK</button>
+                    <button class="contact">CONTACT</button>
+                    <button class="apply">APPLY NOW</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablink");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+    </script>
+</body>
+
+</html>

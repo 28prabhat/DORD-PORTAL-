@@ -1,0 +1,231 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            background-color: #e0f7fa;
+        }
+
+        .header {
+            width: 100%;
+            background: #0278bdd7;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+            margin-bottom: 50px;
+            box-sizing: border-box;
+        }
+
+        .header h1 {
+            margin: 0;
+        }
+
+        .iitk {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .iitk img {
+            margin-left: 15px;
+            height: 80px;
+            width: 80px;
+        }
+
+        .container {
+            display: flex;
+            width: 80%;
+            height: 70%;
+            box-sizing: border-box;
+            gap: 25px;
+        }
+
+        .left,
+        .right {
+            width: 50%;
+            padding: 40px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .left {
+            background-color: #2c2c2c;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 100px;
+            height: auto;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        .left h1 {
+            margin-bottom: 40px;
+        }
+
+        form {
+            width: 100%;
+            max-width: 300px;
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 10px;
+            color: white; /* Adjusted color for labels */
+        }
+
+        form input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 4px;
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 10px;
+            margin: 20px 10px;
+            background-color: #ff5a5f;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .login-button:hover {
+            background-color: #db4d52;
+        }
+
+        .forgot-password,
+        .create-account {
+            color: #ff5a5f;
+            text-decoration: none;
+        }
+
+        .forgot-password:hover {
+            color: #fe898d;
+        }
+
+        .create-account {
+            border: 1px solid #ff5a5f;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        .create-account:hover {
+            background-color: #ff5a5f;
+            color: #bddddd;
+        }
+
+        .right {
+            background: linear-gradient(to bottom, #ff5a5f, #ff8c00);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .right h2 {
+            margin-bottom: 20px;
+        }
+
+        .right p {
+            max-width: 400px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .left,
+            .right {
+                width: 80%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1>Office of Research & Development</h1>
+        <div class="iitk">
+            <h2>Indian Institute of Technology Kanpur</h2>
+            <img src="{% static 'Registration/iitk logo white.png' %}" alt="iitk-logo-white">
+        </div>
+    </div>
+    <div class="container">
+        <div class="left">
+            <div class="logo">
+                <img src="{% static 'Registration/iitk logo white.png' %}" alt="IITK Logo">
+            </div>
+            <h1>Project Portal</h1>
+            <!-- <form method="post" action="{% url 'signupview' %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="login-button">Sign Up</button>
+            </form> -->
+            <form method="POST" action="{% url 'signupview' %}" class="form">
+                {% csrf_token %}
+                <div class="inputBox">
+                    <input type="text" name="username" required>
+                    <i>username</i>
+                </div>
+                <div class="inputBox">
+                    <input type="password" name="password1" required>
+                    <i>Password</i>
+                </div>
+                <div class="inputBox">
+                    <input type="password" name="password2" required>
+                    <i>Password Confirmation</i>
+                </div>
+                <!-- <div class="inputBox">
+                    <input type="submit" value="Signup">
+                </div> -->
+                <button type="submit" class="login-button">Sign Up</button>
+                {% if errors %}
+                    <div class="errors">
+                        {% for field, error_list in errors.items %}
+                            <p style="color: wheat;">{{ field }}: {{ error_list|join:", " }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </form>
+            <p>Already have an account? <a href="{% url 'logindetails' %}" class="create-account">Log in</a></p>
+            
+        </div>
+        <div class="right">
+            <h2>Research and Project Portal</h2>
+            <p>Details about this programme, Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        </div>
+    </div>
+</body>
+
+</html>
