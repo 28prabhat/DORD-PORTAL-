@@ -18,18 +18,18 @@ from django.contrib import admin
 from django.urls import path,include
 from myapp.views import *
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls,name='admin'),
     path('', landing, name='landing'),
-    path('registration', register, name='registration'),
+    path('registration', user_registration1, name='registration'),
     path('success/', success, name='success'),
     path('login/', custom_login, name='login'),
     path('signup/', signup, name='signup'),
     path('signupview/', signup_view, name='signupview'),
     path('logindetails/', custom_login, name='logindetails'),
-    path('dashboard/', dashboard, name='dashboard'),
-    path('projects/', project_list, name='project-list'),
-    path('projects/add/', add_project, name='add-project'),\
-    path('projectdetails/', projectdetails, name='projectdetails'),
+    # path('dashboard/', dashboard, name='dashboard'),
+    path('dashboard/', project_list, name='project-list'),
+    path('projects/add/', add_project, name='add-project'),
+    path('project/<int:project_id>/', project_detail, name='projectdetail'),
     path('profile/', profile, name='profile'),
 
     

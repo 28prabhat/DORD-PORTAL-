@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 class UserRegistration(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    
+
     USER_TYPE_CHOICES = [
         ('admin', 'Admin (DORD)'),
         ('dean', 'Dean'),
@@ -43,7 +43,6 @@ class UserRegistration(models.Model):
 
 
 
-
 class Project_store(models.Model):
     title = models.CharField(max_length=200)
     supervisor = models.CharField(max_length=100)
@@ -54,8 +53,49 @@ class Project_store(models.Model):
     sponsor = models.CharField(max_length=100)
     deadline = models.DateField()
     budget = models.DecimalField(max_digits=10, decimal_places=2)
+    serial_no = models.CharField(max_length=50)
+    department = models.CharField(max_length=100)
+    country = models.CharField(max_length=100)
+    description = models.TextField()
+    vacancy = models.IntegerField()
+    duration = models.CharField(max_length=50)
+    release_date = models.DateField()
+    eligibility = models.TextField()
+    expertise = models.TextField()
 
     def __str__(self):
         return self.title
+
+
+# from django.db import models
+
+# class Project(models.Model):
+#     title = models.CharField(max_length=200)
+#     serial_no = models.CharField(max_length=50)
+#     department = models.CharField(max_length=100)
+#     country = models.CharField(max_length=100)
+#     description = models.TextField()
+#     vacancy = models.IntegerField()
+#     duration = models.CharField(max_length=50)
+#     release_date = models.DateField()
+#     deadline = models.DateField()
+#     budget = models.DecimalField(max_digits=10, decimal_places=2)
+#     eligibility = models.TextField()
+#     expertise = models.TextField()
+
+#     def __str__(self):
+#         return self.title
+
+
+
+
+
+
+
+
+
+
+
+
 
 

@@ -193,16 +193,24 @@
             <form method="POST" action="{% url 'signupview' %}" class="form">
                 {% csrf_token %}
                 <div class="inputBox">
-                    <input type="text" name="username" required>
                     <i>username</i>
+                    <input type="text" name="username" required>
+                    
                 </div>
                 <div class="inputBox">
-                    <input type="password" name="password1" required>
+                    <i>Email</i>
+                    <input type="email" name="email" required>
+                    
+                </div>
+                <div class="inputBox">
                     <i>Password</i>
+                    <input type="password" name="password1" required>
+                    
                 </div>
                 <div class="inputBox">
-                    <input type="password" name="password2" required>
                     <i>Password Confirmation</i>
+                    <input type="password" name="password2" required>
+                    
                 </div>
                 <!-- <div class="inputBox">
                     <input type="submit" value="Signup">

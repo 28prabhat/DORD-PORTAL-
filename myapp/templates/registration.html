@@ -167,15 +167,18 @@
     <div class="container">
         <div class="form-container">
             <h2>USER REGISTRATION FORM</h2>
-            <!-- <form id="registrationForm" method="post" action="{% url 'registration' %}">
-                {% csrf_token %}
-                {{form.as_p}}
-            </form> -->
+          
             <form id="registrationForm" method="post" action="{% url 'registration' %}">
                 {% csrf_token %}
-                <label for="userType">User Type:</label>
-                <select id="userType" name="user_type"> <!-- Changed to user_type -->
-                    <option value="admin">Admin (DORD)</option>
+                {% if already_registered %}
+                <p>You have already registered.</p>
+
+                {% else %}
+                {{ form.as_p }}
+                <button type="submit">Submit</button>
+                {% endif %}
+            </form>
+                    <!-- <option value="admin">Admin (DORD)</option>
                     <option value="dean">Dean</option>
                     <option value="staff">Staff</option>
                     <option value="faculty">Faculty of IITK</option>
@@ -186,26 +189,24 @@
                 </select>
             
                 <label for="dordNumber">DORD Number:</label>
-                <input type="text" id="dordNumber" name="dord_number"> <!-- Changed to dord_number -->
+                <input type="text" id="dordNumber" name="dord_number"> 
             
                 <label for="name">Name:</label>
                 <input type="text" id="name" name="name">
             
                 <label for="firmExpertise">Description of the Firm/Expertise:</label>
-                <textarea id="firmExpertise" name="firm_expertise" rows="3"></textarea> <!-- Changed to firm_expertise -->
-            
+                <textarea id="firmExpertise" name="firm_expertise" rows="3"></textarea> 
                 <label for="sector">Sector Expertise:</label>
-                <select id="sector" name="sector_expertise"> <!-- Changed to sector_expertise -->
+                <select id="sector" name="sector_expertise">
                     <option value="ict">ICT</option>
                     <option value="education">Education</option>
-                    <!-- Add more sectors as needed -->
+                   
                 </select>
             
                 <label for="subsector">Sub-Sector Expertise:</label>
-                <input type="text" id="subsector" name="subsector_expertise"> <!-- Changed to subsector_expertise -->
-            
+                <input type="text" id="subsector" name="subsector_expertise"> 
                 <label for="pastProjects">Past Projects:</label>
-                <textarea id="pastProjects" name="past_projects" rows="5"></textarea> <!-- Changed to past_projects -->
+                <textarea id="pastProjects" name="past_projects" rows="5"></textarea> 
             
                 <label for="gender">Gender:</label>
                 <div class="gender-options">
@@ -236,10 +237,10 @@
                     <button type="reset" class="reset">RESET ALL</button>
                     <button type="submit" class="submit">SUBMIT FORM</button>
                 </div>
-            </form>
+           
         </div>
     </div>
-
+ -->
 
 </body>
 

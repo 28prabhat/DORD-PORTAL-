@@ -186,25 +186,19 @@
             <img src="iitk logo white.png" alt="iitk-logo-white">
         </div>
     </div>
+    {% block content %}
     <div class="container">
         <div class="content">
             <div class="project-details">
                 <div class="project-info">
                     <h3>Project Details</h3>
-                    <p><strong>Project Title:</strong> Development of Indian research laboratory management software</p>
-                    <p><strong>Serial No.:</strong> OX7456</p>
-                    <p><strong>Department/Organization:</strong> Electrical Engineering</p>
-                    <p><strong>Country:</strong> India</p>
+                    <p><strong>Project Title:</strong> {{projects.title}}</p>
+                    <p><strong>Serial No.:</strong> {{projects.serial_no}}</p>
+                    <p><strong>Department/Organization:</strong> {{projects.department}}</p>
+                    <p><strong>Country:</strong> {{projects.country}}</p>
                 </div>
                 <div class="project-description">
-                    <p>Managing research labs in India contains several unique tasks related to purchase process in
-                        addition to the usual tasks. The work will involve development of a large web app including
-                        authentication mechanisms, automation, role management and enforcement, student/scientist
-                        management, work management, inventory, analytics, predictive processes, document management,
-                        integration with external processes through APIs or document generation. Skills needed: SQL (the
-                        project will use PostgreSQL), and Python as the application language. This is a long term
-                        business application development project that will need 2 students with at least a year's
-                        commitment.</p>
+                    <p>{{projects.description}}</p>
                 </div>
             </div>
             <div class="tags">
@@ -214,20 +208,20 @@
                     <button class="tablink" onclick="openTab(event, 'More')">More</button>
                 </div>
                 <div id="Basic" class="tabcontent" style="display: block;">
-                    <h3>Tags</h3>
+                    <h3>{{projects.tags}}</h3>
                     <ul>
-                        <li><strong>Vacancy:</strong> 10</li>
-                        <li><strong>Duration:</strong> 3 Months</li>
-                        <li><strong>Release Date:</strong> 10 June 2024</li>
-                        <li><strong>Deadline:</strong> 10 September 2024</li>
-                        <li><strong>Budget:</strong> 5 lakhs</li>
+                        <li><strong>Vacancy:</strong> {{projects.vacancy}}</li>
+                        <li><strong>Duration:</strong> {{projects.duration}}</li>
+                        <li><strong>Release Date:</strong> {{projects.release_date}}</li>
+                        <li><strong>Deadline:</strong> {{projects.deadline}}</li>
+                        <li><strong>Budget:</strong> {{projects.budget}}</li>
                     </ul>
                 </div>
                 <div id="Eligibility" class="tabcontent" style="display: block;">
                     <h3>Eligibility</h3>
                     <ul>
-                        <li><strong>Open to:</strong> BT II/III/IV Year (CSE/EE/MTH)</li>
-                        <li><strong>Expertise:</strong> ML/NLP/C/C++/Python/Java/Javascript</li>
+                        <li><strong>Open to:</strong> {{projects.open_to}}</li>
+                        <li><strong>Expertise:</strong> {{projects.expertise}}</li>
 
                     </ul>
 
@@ -244,6 +238,8 @@
             </div>
         </div>
     </div>
+    {% endblock  %}
+    
     <script>
         function openTab(evt, tabName) {
             var i, tabcontent, tablinks;
