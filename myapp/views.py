@@ -121,3 +121,48 @@ def profile(request):
     
 #     return render(request, 'profile.html', {'user_registration': user_registration})
 
+@login_required
+def apply_for_project(request, project_id):
+    project = get_object_or_404(Project_store, id=project_id)
+    user_registration = get_object_or_404(UserRegistration, user=request.user)
+    
+    if request.method == 'POST':
+        form = ProjectApplicationForm(request.POST)
+        if form.is_valid():
+            application = form.save(commit=False)
+            application.user_details = user_registration
+            application.project = project
+            application.save()
+            return redirect('project-list')
+    else:
+        form = ProjectApplicationForm()
+    
+    return render(request, 'apply.html', {'form': form, 'project': project})
+
+@login_required
+def my_applications(request):
+    user_registration = get_object_or_404(UserRegistration, user=request.user)
+    applications = ProjectApplication.objects.filter(user_details=user_registration)
+    application_data = []
+    for application in applications:
+        project_store = application.project  # Access the Project_store object
+        user_registration = application.user_details  # Access the UserRegistration object
+        
+        # Append relevant data to a list
+        application_data.append({
+            'project_title': project_store.title,
+            'country':project_store.country,
+            'open_to':project_store.open_to,
+            'duration':project_store.duration,
+            'sponsor':project_store.sponsor,
+            'superviser':project_store.supervisor,
+            'budget':project_store.budget,
+            'deadline':project_store.deadline,
+            'user_username': user_registration.user.username,
+            'applied_on': application.applied_on,
+            'remarks': application.remarks,
+        })
+    
+    return render(request, 'my_applications.html', {'application_data': application_data})
+
+

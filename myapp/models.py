@@ -67,6 +67,17 @@ class Project_store(models.Model):
         return self.title
 
 
+
+
+class ProjectApplication(models.Model):
+    project = models.ForeignKey(Project_store, on_delete=models.CASCADE)
+    user_details = models.ForeignKey(UserRegistration, on_delete=models.CASCADE)
+    applied_on = models.DateTimeField(auto_now_add=True)
+    remarks=models.TextField()
+
+    def __str__(self):
+        return f"{self.user.username} - {self.project.title}"
+
 # from django.db import models
 
 # class Project(models.Model):

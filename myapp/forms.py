@@ -52,3 +52,7 @@ class ProjectForm(forms.ModelForm):
         fields = '__all__'
 
 
+class ProjectApplicationForm(forms.ModelForm):
+    class Meta:
+        model = ProjectApplication
+        fields = ['remarks']

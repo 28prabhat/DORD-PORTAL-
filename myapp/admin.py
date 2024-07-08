@@ -10,6 +10,6 @@ class ProjectAdmin(admin.ModelAdmin):
     search_fields = ('title', 'supervisor', 'tags', 'sponsor')
     date_hierarchy = 'deadline'
 
-
+admin.site.register(ProjectApplication)
 
 

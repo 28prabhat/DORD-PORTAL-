@@ -31,6 +31,8 @@ urlpatterns = [
     path('projects/add/', add_project, name='add-project'),
     path('project/<int:project_id>/', project_detail, name='projectdetail'),
     path('profile/', profile, name='profile'),
+    path('projects/apply/<int:project_id>/', apply_for_project, name='applyforproject'),
+    path('my_applications/', my_applications, name='myapplications'),
 
     
 

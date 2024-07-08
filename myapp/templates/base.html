@@ -223,7 +223,7 @@
             </svg>
             Bookmarked Projects
         </a>
-        <a href="{% url 'myapplications' %}"class="item">
+        <a href="#" class="item">
             <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
                 <g clip-path="url(#clip0_34_125)">
                     <path
@@ -263,37 +263,6 @@
   
    
     {% block content %}
-    <div class="container">
-        <h1>Project Dashboard</h1>
-        <div class="container">
-            {% for project in projects %}
-            <div class="card">
-                <div class="tag">
-                    <h5 class="card-title">{{ project.title }}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Supervisor: {{ project.supervisor }}</h6>
-                </div>
-                <p class="card-text">Country: {{ project.country }}</p>
-                <p class="card-text">Open to: {{ project.open_to }}</p>
-                <p class="card-text">Duration: {{ project.duration }}</p>
-                <p class="card-text">Sponsor: {{ project.sponsor }}</p>
-                <p class="card-text">Deadline: {{ project.deadline }}</p>
-                <p class="card-text">Budget: {{ project.budget }}</p>
-                <div class="button">
-                    <a href="#" class="btn">Details</a>
-                    <a href="{% url 'projectdetail' project_id=project.id %}" class="btn">Apply Now</a> 
-                
-                </div>
-            </div>
-            {% endfor %}
-            <!-- <div class="card">
-                <div class="card-body text-center">
-                    <a href="{% url 'add-project' %}" class="btn btn-primary">
-                        Add New Project
-                    </a>
-                </div>
-            </div> -->
-        </div>
-    </div>
     {% endblock %}
 
 

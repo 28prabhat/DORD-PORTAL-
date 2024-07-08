@@ -233,7 +233,10 @@
                 <div class="buttons">
                     <button class="bookmark">BOOKMARK</button>
                     <button class="contact">CONTACT</button>
-                    <button class="apply">APPLY NOW</button>
+                    <a href="{% url 'applyforproject' project_id=projects.id %}" class="apply-button">
+                        <button class="apply">APPLY NOW</button>
+                    </a>
+                    
                 </div>
             </div>
         </div>

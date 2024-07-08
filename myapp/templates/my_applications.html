@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>My Applications</h2>
+<ul>
+    {% if application_data %}
+   
+    <li>
+        {% comment %} <h3>{{ application.project.title }}</h3> {% endcomment %}
+        {% comment %} <p>Applied on: {{ application.applied_on }}</p>
+        <p>Remarks: {{ application.remarks }}</p> {% endcomment %}
+        {% for app in application_data %}
+        <div class="card">
+            <div class="tag">
+                <h5 class="card-title">{{ app.title }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Supervisor: {{ app.supervisor }}</h6>
+            </div>
+            <p class="card-text">Applied on: {{ app.applied_on }}</p>
+            <p class="card-text">Remarks: {{ app.remarks }}</p>
+            <p class="card-text">Country: {{ app.country }}</p>
+            <p class="card-text">Open to: {{ app.open_to }}</p>
+            <p class="card-text">Duration: {{ app.duration }}</p>
+            <p class="card-text">Sponsor: {{ app.sponsor }}</p>
+            <p class="card-text">Deadline: {{ app.deadline }}</p>
+            <p class="card-text">Budget: {{ app.budget }}</p>
+            <div class="button">
+                <a href="#" class="btn">Details</a>
+                {% comment %} <a href="{% url 'projectdetail' project_id=project.id %}" class="btn">Apply Now</a>  {% endcomment %}
+            
+            </div>
+        </div>
+      
+    </li>
+    {% endfor %}
+    {% else %}
+        <p>No applications found.</p>
+    {% endif %}
+</ul>
+{% endblock %}
+{% comment %} {% block content %}
+    <div class="container">
+        <h1>Project Dashboard</h1>
+        <div class="container">
+            {% for project in projects %}
+            <div class="card">
+                <div class="tag">
+                    <h5 class="card-title">{{ project.title }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Supervisor: {{ project.supervisor }}</h6>
+                </div>
+                <p class="card-text">Country: {{ project.country }}</p>
+                <p class="card-text">Open to: {{ project.open_to }}</p>
+                <p class="card-text">Duration: {{ project.duration }}</p>
+                <p class="card-text">Sponsor: {{ project.sponsor }}</p>
+                <p class="card-text">Deadline: {{ project.deadline }}</p>
+                <p class="card-text">Budget: {{ project.budget }}</p>
+                <div class="button">
+                    <a href="#" class="btn">Details</a>
+                    <a href="{% url 'projectdetail' project_id=project.id %}" class="btn">Apply Now</a> 
+                
+                </div>
+            </div>
+            {% endfor %}
+            <!-- <div class="card">
+                <div class="card-body text-center">
+                    <a href="{% url 'add-project' %}" class="btn btn-primary">
+                        Add New Project
+                    </a>
+                </div>
+            </div> -->
+        </div>
+    </div>
+    {% endblock %} {% endcomment %}
