@@ -34,6 +34,7 @@ urlpatterns = [
     path('projects/apply/<int:project_id>/', apply_for_project, name='applyforproject'),
     path('my_applications/', my_applications, name='myapplications'),
     path('logout/', logout_user, name='logout'),
+    path('addproject/', save_projects, name='save_projects'),
 
     
 

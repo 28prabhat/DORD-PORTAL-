@@ -1,6 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{% if user.is_authenticated and user.is_staff %}
+
+        <form action="{% url 'save_projects' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" id="logoutButton" class="logout-btn">Add Projects</button>
+        </form>
+        
+    {% endif %}
+       
 <h2 style="text-align: center; font-weight: 600;">Project Dashboard</h2>
 <div class="container">
     {% for project in projects %}
@@ -21,7 +30,7 @@
         <p class="card-text"><strong>Country:</strong> {{ project.country }}</p>
         <p class="card-text"><strong>Open to:</strong> {{ project.open_to }}</p>
         <p class="card-text"><strong>Duration:</strong> {{ project.duration }}</p>
-        <p class="card-text"><strong>Sponsor:</strong> {{ project.sponsor }}</p>
+        <p class="card-text"><strong>Funding Agency:</strong> {{ project.sponsor }}</p>
         <p class="card-text"><strong>Deadline:</strong> {{ project.deadline }}</p>
         <p class="card-text"><strong>Budget:</strong> {{ project.budget }}</p>
         <div class="buttons">

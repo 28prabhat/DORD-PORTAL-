@@ -45,7 +45,7 @@ def custom_login(request):
         if user1 is not None:
             login(request, user1)
             if user1.is_superuser:
-                return redirect('admin')
+                return redirect('project-list')
             else:
                 return redirect('registration')
         else:
@@ -153,12 +153,14 @@ def my_applications(request):
     user_registration = get_object_or_404(UserRegistration, user=request.user)
     applications = ProjectApplication.objects.filter(user_details=user_registration)
     application_data = []
+    # project_store=None
     for application in applications:
         project_store = application.project  # Access the Project_store object
         user_registration = application.user_details  # Access the UserRegistration object
         
         # Append relevant data to a list
         application_data.append({
+            'id':project_store.id,
             'title': project_store.title,
             'country':project_store.country,
             'open_to':project_store.open_to,
@@ -171,8 +173,8 @@ def my_applications(request):
             'applied_on': application.applied_on,
             'remarks': application.remarks,
         })
-    
-    return render(request, 'my_applications.html', {'application_data': application_data})
+    context={'application_data': application_data}
+    return render(request, 'my_applications.html', context)
 
 
 from django.contrib.auth import logout
@@ -180,3 +182,73 @@ from django.contrib.auth import logout
 def logout_user(request):
     logout(request)
     return redirect('landing')  
+
+
+
+# EXCEL TO DATABASE
+
+import pandas as pd
+from datetime import datetime
+from .models import Project_store
+
+def import_projects_from_excel(file_path):
+    df = pd.read_excel(file_path, engine='openpyxl')  # Read Excel file
+    
+    for index, row in df.iterrows():
+        # Extract data from each row
+        title = row['title']
+        supervisor = row['supervisor']
+        tags = row['tags']
+        country = row['country']
+        open_to = row['open_to']
+        duration = row['duration']
+        sponsor = row['sponsor']
+        deadline = row['deadline'].to_pydatetime().date()
+        budget = row['budget']
+        serial_no = row['serial_no']
+        department = row['department']
+        description = row['description']
+        vacancy = row['vacancy']
+        release_date = row['release_date'].to_pydatetime().date()
+        eligibility = row['eligibility']
+        expertise = row['expertise']
+
+        # Create Project_store instance and save to database
+        project = Project_store(
+            title=title,
+            supervisor=supervisor,
+            tags=tags,
+            country=country,
+            open_to=open_to,
+            duration=duration,
+            sponsor=sponsor,
+            deadline=deadline,
+            budget=budget,
+            serial_no=serial_no,
+            department=department,
+            description=description,
+            vacancy=vacancy,
+            release_date=release_date,
+            eligibility=eligibility,
+            expertise=expertise
+        )
+        project.save()
+
+
+from django.contrib.admin.views.decorators import staff_member_required
+from django.http import HttpResponse
+ # Assuming import function is in the same directory
+
+@login_required
+@staff_member_required  # Ensures user is staff (admin)
+def save_projects(request):
+    if request.method == 'POST':
+        try:
+            file_path = "C:\\Users\\28pra\\OneDrive\\Desktop\\Call_for_Proposals.xlsx"  # Adjust path as necessary
+            import_projects_from_excel(file_path)
+            return redirect("project-list")
+        except Exception as e:
+            return HttpResponse(f'Error importing projects: {str(e)}')
+    else:
+        return HttpResponse('Invalid request method.')
+    
