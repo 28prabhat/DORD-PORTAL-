@@ -351,15 +351,28 @@
     {% endblock %}
 
 
+    <script>
+        document.getElementById("logoutButton").onclick = function () {
+            window.location.href = "landing.html";
+        };
+        // Function to search projects based on title, type and tags
+        document.querySelector('.search-bar input').addEventListener('input', function () {
+            const searchValue = this.value.toLowerCase().trim();
+            const cards = document.querySelectorAll('.card');
 
-</body>
+            cards.forEach(card => {
+                const title = card.querySelector('h2').textContent.toLowerCase();
+                const type = card.querySelector('h4').textContent.toLowerCase();
+                const tags = Array.from(card.querySelectorAll('.tag')).map(tag => tag.textContent.toLowerCase());
 
-<script>
-    document.getElementById("logoutButton").onclick = function () {
-        window.location.href = "landing.html";
-    };
-</script>
-
+                if (title.includes(searchValue) || type.includes(searchValue) || tags.some(tag => tag.includes(searchValue))) {
+                    card.style.display = 'block'; // Show the card if the title, type or tags match the search query
+                } else {
+                    card.style.display = 'none'; // Hide the card if the title, type and tags do not match the search query
+                }
+            });
+        });
+    </script>
 
 </body>
 
