@@ -2,6 +2,13 @@
 
 from django.db import models
 from django.contrib.auth.models import User
+import datetime
+import uuid
+
+def generate_unique_id(user_type):
+        current_year = datetime.datetime.now().year
+        unique_id = uuid.uuid4().hex[:8].upper()  # Generate a unique 8-character hex string
+        return f'{current_year}-{user_type.upper()}-{unique_id}'
 
 class UserRegistration(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -40,6 +47,13 @@ class UserRegistration(models.Model):
 
     def __str__(self):
         return self.name
+    
+   
+
+    def save(self, *args, **kwargs):
+        if not self.dord_number:
+            self.dord_number = generate_unique_id(self.user_type)
+        super(UserRegistration, self).save(*args, **kwargs)
 
 
 

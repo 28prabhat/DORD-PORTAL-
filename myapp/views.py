@@ -69,14 +69,23 @@ def user_registration1(request):
                 user_registration.user = request.user
                 user_registration.save()
                 return redirect(reverse('profile')) 
-            else:
-                print(form.errors)  
+            # else:
+            #     print(form.errors)  
     context = {
         'form': form,
         'already_registered': already_registered,
     }
     
     return render(request, 'profile.html', context)
+
+# import datetime
+# import uuid
+
+# def generate_unique_id(user_type):
+#     current_year = datetime.datetime.now().year
+#     unique_id = uuid.uuid4().hex[:8].upper()  # Generate a unique 8-character hex string
+#     return f'{current_year}-{user_type.upper()}-{unique_id}'
+
 
 
 
@@ -166,3 +175,8 @@ def my_applications(request):
     return render(request, 'my_applications.html', {'application_data': application_data})
 
 
+from django.contrib.auth import logout
+
+def logout_user(request):
+    logout(request)
+    return redirect('landing')  

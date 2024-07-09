@@ -1,6 +1,7 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-    {% load static %}
+   
 
 <head>
     <meta charset="UTF-8">
@@ -189,6 +190,22 @@
                 display: none;
             }
         }
+
+        .form-field {
+            margin-bottom: 10px;
+        }
+        .form-field label {
+            display: block;
+            font-weight: bold;
+        }
+        .form-field input[type="text"],
+        .form-field textarea {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
     </style>
 </head>
 <body>
@@ -197,82 +214,82 @@
         <div class="logo">Office of Research and Development IIT Kanpur</div>
         <a href="{% url 'project-list' %}" class="btn">Dashboard</a>         
     </header>
-        {% block content %}
-<div class="container">
-    <h1>Profile</h1>
-    <form id="registrationForm" method="post" action="{% url 'registration' %}">
-        {% csrf_token %}
-        {% if already_registered %}
-        <section id="about">
-            <h2>About</h2>
-            <hr>
-            <form>
-                <label for="dord-id">DORD ID</label>
-                <input type="text" id="dord-id" name="dord-id" value="2530123" readonly>
-    
-                <label for="full-name">Full Name</label>
-                {{ form.name }}
+    <div class="container">
+        <h1>Profile</h1>
+        <form id="registrationForm" method="post" action="{% url 'registration' %}">
+            {% csrf_token %}
+            {% if already_registered %}
+                <section id="about">
+                    <h2>About</h2>
+                    <hr>
+                    <div class="form-field">
+                        <label for="dord-id">DORD ID</label>
+                        <p>{{ form.instance.dord_number }}</p>
+                    </div>
+                    <div class="form-field">
+                        <label for="full-name">Full Name</label>
+                        <p>{{ form.instance.name }}</p>
+                    </div>
+                    <div class="form-field">
+                        <label for="User-type">User type</label>
+                        <p>{{ form.instance.get_user_type_display }}</p>
+                    </div>
+                    <div class="form-field">
+                        <label for="gender">Gender</label>
+                        <p>{{ form.instance.get_gender_display }}</p>
+                    </div>
+                    <div class="form-field">
+                        <label for="email">Email</label>
+                        <p>{{ form.instance.email }}</p>
+                    </div>
+                    <div class="form-field">
+                        <label for="description">Description</label>
+                        <p>{{ form.instance.firm_expertise }}</p>
+                    </div>
+                </section>
 
-                <label for="User-type">User type</label>
-                <input type="text" id="email" name="genter" value="{{form.get_gender_display}}" readonly>
+                <section id="sector-expertise">
+                    <h2>Sector Expertise</h2>
+                    <hr>
+                    <div class="form-field">
+                        <label for="secotr">Sector</label>
+                        <p>{{ form.instance.sector_expertise }}</p>
+                    </div>
+                    <div class="form-field">
+                        <label for="subsector">Sub Sector</label>
+                        <p>{{ form.instance.subsector_expertise }}</p>
+                    </div>
+                </section>
 
-                <label for="gender">Gender</label>
-                <input type="text" id="email" name="genter" value="{{form.gender_display}}" readonly>
-
-
-                <label for="email">Email</label>
-                <input type="text" id="email" name="email" value="{{user.email}}" readonly>
-    
-                <label for="description">Description</label>
-                {{form.firm_expertise}}
-
-            </form>
-        </section>
-
-        <section id="sector-expertise">
-            <h2>Sector Expertise</h2>
-            <hr>
-            <div class="sector-list">
-                <div class="sector-item">
-                    <label for="secotr">Sector</label>
-                    {{form.sector_expertise}}
-
-                    <label for="subsector">Sub Sector</label>
-                    {{form.subsector_expertise}} 
-                </div>
-            </div>
-        </section> 
-        <section id="past-projects">
-            <h2>Past Projects</h2>
-            <hr>
-            <div class="project-list">
-
-            <label for="full-name">State</label>
-            {{ form.state }} 
-            <label for="full-name">City</label>
-            {{ form.city }}
-
-            <label for="pincode">Pincode</label>
-            {{ form.pincode }} 
-            <label for="full-name">Course</label>
-            {{ form.course }}
-
-            <label for="full-name">State</label>
-            {{ form.past_projects }} 
-
-
-    
-        </section>
-
-             
-        {% else %}
-        {{ form.as_p }}
-        <button type="submit">Submit</button>
-        {% endif %}
-        
-    </form>
-    {% endblock %}
-
-
+                <section id="past-projects">
+                    <h2>Past Projects</h2>
+                    <hr>
+                    <div class="form-field">
+                        <label for="state">State</label>
+                        <p>{{ form.instance.state }}</p>
+                    </div>
+                    <div class="form-field">
+                        <label for="city">City</label>
+                        <p>{{ form.instance.city }}</p>
+                    </div>
+                    <div class="form-field">
+                        <label for="pincode">Pincode</label>
+                        <p>{{ form.instance.pincode }}</p>
+                    </div>
+                    <div class="form-field">
+                        <label for="course">Course</label>
+                        <p>{{ form.instance.course }}</p>
+                    </div>
+                    <div class="form-field">
+                        <label for="past-projects">Past Projects</label>
+                        <p>{{ form.instance.past_projects }}</p>
+                    </div>
+                </section>
+            {% else %}
+                {{ form.as_p }}
+                <button type="submit">Submit</button>
+            {% endif %}
+        </form>
+    </div>
 </body>
 </html>

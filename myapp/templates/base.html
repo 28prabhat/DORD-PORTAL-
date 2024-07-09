@@ -341,7 +341,13 @@
                     fill="black" />
             </svg>
         </a>
-        <button id="logoutButton" class="logout">Logout</button>
+        <a href="{% url 'logout' %}" class="logout-btn">
+            <button id="logoutButton" class="logout">Logout</button>
+
+
+        </a>
+        
+        
         <!-- <a href="{% url 'add-project' %}" class="btn btn-primary mb-3">Add New Project</a> -->
     </div>
 
