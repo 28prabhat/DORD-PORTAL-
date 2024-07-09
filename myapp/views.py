@@ -150,7 +150,7 @@ def my_applications(request):
         
         # Append relevant data to a list
         application_data.append({
-            'project_title': project_store.title,
+            'title': project_store.title,
             'country':project_store.country,
             'open_to':project_store.open_to,
             'duration':project_store.duration,
