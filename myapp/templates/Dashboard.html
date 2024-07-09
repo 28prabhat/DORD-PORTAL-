@@ -256,6 +256,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </head>
 
 <body>
@@ -268,7 +269,7 @@
     </div>
 
     <div class="navbar">
-        <a href="Filter.html" class="item">
+        <a href="#" class="item" id="filterButton">
             <svg xmlns="http://www.w3.org/2000/svg" width="50" height="40" viewBox="0 0 50 40" fill="none">
                 <g clip-path="url(#clip0_7_21)">
                     <path d="M0 0V8H50V0H0ZM0 16V24H50V16H0ZM0 32V40H50V32H0Z" fill="#454545" />
@@ -280,7 +281,7 @@
                 </defs>
             </svg>
         </a>
-        <a href="#" class="item">
+        <a href="{% url 'project-list' %}" class="item">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house"
                 viewBox="0 0 16 16">
                 <path
@@ -343,7 +344,7 @@
 
 
     {% block content %}
-    <h1 style="text-align: center;">Project Dashboard</h1>
+    <h2 style="text-align: center; font-weight: 600;">Project Dashboard</h2>
     <div class="container">
         {% for project in projects %}
         <div class="card">

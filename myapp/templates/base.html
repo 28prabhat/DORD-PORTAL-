@@ -23,22 +23,29 @@
             flex-direction: row;
             justify-content: space-around;
             align-items: center;
+            flex-wrap: wrap;
         }
 
         .header h1 {
             margin: 0;
+            font-size: 1.5em;
         }
 
         .iitk {
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .iitk h2 {
+            font-size: 1.2em;
         }
 
         .iitk img {
             margin-left: 15px;
-            height: 80px;
-            width: 80px;
+            height: 60px;
+            width: 60px;
         }
 
         .navbar {
@@ -46,7 +53,15 @@
             flex-wrap: wrap;
             justify-content: space-around;
             align-items: center;
-            margin: 20px 100px;
+            margin: 20px 9%;
+        }
+
+        .navbar a {
+            text-decoration: none;
+        }
+
+        .navbar a:hover {
+            background-color: #90E0EF;
         }
 
         .item {
@@ -54,11 +69,15 @@
             align-items: center;
             text-decoration: none;
             color: black;
+            margin: 5px;
+            padding: 5px;
+            border-radius: 50px;
         }
 
+
         .item svg {
-            width: 30px;
-            height: 30px;
+            width: 25px;
+            height: 25px;
             flex-shrink: 0;
             margin: 5px;
         }
@@ -66,21 +85,30 @@
         .search-bar {
             display: flex;
             justify-content: center;
+            align-items: center;
             margin: 20px 0;
+            position: relative;
         }
 
         .search-bar input {
             width: 300px;
-            padding: 10px;
+            padding: 10px 40px 10px 10px;
             border: 1px solid #ccc;
             border-radius: 50px;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
         }
 
         .container {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            padding: 20px;
+            /* padding: 20px; */
         }
 
         .card {
@@ -89,23 +117,27 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             margin: 20px;
             padding: 20px;
-            width: 400px;
+            width: 330px;
             box-sizing: border-box;
+            position: relative;
         }
 
         .card h2 {
-            margin: auto;
             text-align: center;
+            font-size: 1.2em;
+            font-weight: 600;
         }
 
         .card h4 {
             text-align: center;
+            font-size: 1em;
         }
 
         .card .tags {
             display: flex;
             gap: 5px;
             margin-bottom: 15px;
+            flex-wrap: wrap;
         }
 
         .tag {
@@ -113,14 +145,15 @@
             border: 1px solid;
             border-radius: 20px;
             padding: 5px 10px;
-            font-size: 0.9em;
+            font-size: 0.8em;
             box-shadow: 1px 4px 10px rgba(0, 0, 0, 0.1);
             text-decoration: none;
             color: black;
         }
 
         .card p {
-            margin: 15px 0;
+            margin: 10px 0;
+            font-size: 0.9em;
         }
 
         .logout {
@@ -134,14 +167,12 @@
             cursor: pointer;
         }
 
-
         .card .buttons {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-around;
-            margin-top: 50px;
-
-            gap: 15px;
+            margin-top: 20px;
+            gap: 10px;
         }
 
         .btn {
@@ -149,12 +180,12 @@
             border: none;
             border-radius: 25px;
             color: white;
-            padding: 10px 20px;
+            padding: 8px 15px;
             text-align: center;
             text-decoration: none;
             width: 40%;
             max-width: 120px;
-
+            font-size: 0.9em;
         }
 
         .btn:first-child {
@@ -169,25 +200,67 @@
         .btn:first-child:hover {
             background-color: #5fcbdf;
         }
-        .btn btn-primary{
-            color: #f44336;
+
+        .bookmark-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            cursor: pointer;
         }
 
-
-
         @media (max-width: 768px) {
-            .card {
+            .header {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .iitk {
+                flex-direction: column-reverse;
+                margin-top: 10px;
+            }
+
+            .container {
+                padding: 10px;
+            }
+
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .item {
+                margin: 5px 0;
+            }
+
+            .search-bar {
+                margin: auto;
                 width: 100%;
             }
 
             .search-bar input {
-                width: 80%;
+                width: 100%;
             }
+
+            .item:nth-child(6) {
+                flex-direction: row-reverse;
+            }
+
+            .card {
+                width: 100%;
+            }
+
         }
     </style>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        document.getElementById("logoutButton").onclick = function () {
+            window.location.href = "{% url 'signup' %}";
+        };
+    </script>
 </head>
 
 <body>
@@ -195,12 +268,12 @@
         <h1>Office of Research & Development</h1>
         <div class="iitk">
             <h2>Indian Institute of Technology Kanpur</h2>
-            <img src="iitk logo white.png" alt="iitk-logo-white">
+            <img src="../static/dashboard/iitk logo white.png" alt="iitk-logo-white">
         </div>
     </div>
 
     <div class="navbar">
-        <a href="Filter.html" class="item">
+        <a href="#" class="item" id="filterButton">
             <svg xmlns="http://www.w3.org/2000/svg" width="50" height="40" viewBox="0 0 50 40" fill="none">
                 <g clip-path="url(#clip0_7_21)">
                     <path d="M0 0V8H50V0H0ZM0 16V24H50V16H0ZM0 32V40H50V32H0Z" fill="#454545" />
@@ -212,8 +285,20 @@
                 </defs>
             </svg>
         </a>
+        <a href="{% url 'project-list' %}" class="item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house"
+                viewBox="0 0 16 16">
+                <path
+                    d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z" />
+            </svg>
+        </a>
         <div class="search-bar">
             <input type="text" placeholder="Search Projects">
+            <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
         </div>
         <a href="#" class="item">
             <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
@@ -223,7 +308,7 @@
             </svg>
             Bookmarked Projects
         </a>
-        <a href="#" class="item">
+        <a href="{% url 'myapplications' %}" class="item">
             <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
                 <g clip-path="url(#clip0_34_125)">
                     <path
@@ -256,12 +341,12 @@
                     fill="black" />
             </svg>
         </a>
-        <a href="{% url 'signup' %}" class="btn btn-primary">logout</a>
+        <button id="logoutButton" class="logout">Logout</button>
         <!-- <a href="{% url 'add-project' %}" class="btn btn-primary mb-3">Add New Project</a> -->
     </div>
 
-  
-   
+
+
     {% block content %}
     {% endblock %}
 
@@ -269,11 +354,11 @@
 
 </body>
 
-   <script>
-        document.getElementById("logoutButton").onclick = function () {
-            window.location.href = "landing.html";
-        };
-    </script>  
+<script>
+    document.getElementById("logoutButton").onclick = function () {
+        window.location.href = "landing.html";
+    };
+</script>
 
 
 </body>

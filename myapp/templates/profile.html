@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+    {% load static %}
 
 <head>
     <meta charset="UTF-8">
@@ -10,8 +11,10 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background: url('background.jpg') no-repeat center center fixed;
-            background-size: cover;
+            /* background: url('background.jpg') no-repeat center center fixed; */
+            background: url('{% static 'profile/background.jpg' %}')  no-repeat center center;
+            background-size: cover;      
+
         }
 
         .App-header {
@@ -25,6 +28,9 @@
             box-sizing: border-box;
         }
 
+        .container h2{
+            color: #01579b;
+        }
 
         .logo {
             font-size: 1.5rem;
@@ -64,7 +70,7 @@
         }
 
         #about {
-            margin-top: 100px;
+            margin-top: 50px;
         }
 
         section {
@@ -72,7 +78,8 @@
             margin: 20px auto;
             padding: 20px;
             max-width: 800px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 10px rgba(0, 0, 0, 1);
+            border-radius: 15px;
             margin-top: 00px;
             /* Add this to create space for the fixed header */
         }
@@ -100,6 +107,32 @@
             border-radius: 5px;
             cursor: pointer;
         }
+        .btn {
+            background: #0277bd;
+            border: none;
+            border-radius: 25px;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            width: 40%;
+            max-width: 120px;
+
+        }
+
+        .btn:first-child {
+            background: #90E0EF;
+            color: #094A84;
+        }
+
+        .btn:hover {
+            background: #01579b;
+        }
+
+        .btn:first-child:hover {
+            background-color: #5fcbdf;
+        }
+
 
         button:hover {
             background-color: #005bb5;
@@ -157,187 +190,81 @@
             }
         }
     </style>
- <script> 
-    //     document.addEventListener('DOMContentLoaded', () => {
-    //         const projectModal = document.getElementById('project-modal');
-    //         const addProjectModal = document.getElementById('add-project-modal');
-    //         const addSectorModal = document.getElementById('add-sector-modal');
-    //         const closeModalElements = document.querySelectorAll('.close');
-    //         const projectDetails = document.getElementById('project-details');
-    //         const addProjectButton = document.getElementById('add-project');
-    //         const addSectorButton = document.getElementById('add-sector');
-    //         const newProjectForm = document.getElementById('new-project-form');
-    //         const newSectorForm = document.getElementById('new-sector-form');
-
-    //         const projects = {
-    //             1: {
-    //                 name: 'Project 1',
-    //                 country: 'India',
-    //                 state: 'Delhi',
-    //                 startDate: '2024-06-06',
-    //                 endDate: '2025-03-05',
-    //                 client: 'ABC',
-    //                 description: 'Project 1 description...'
-    //             },
-    //             2: {
-    //                 name: 'Project 2',
-    //                 country: 'India',
-    //                 state: 'Karnataka',
-    //                 startDate: '2023-05-01',
-    //                 endDate: '2023-12-15',
-    //                 client: 'DEF',
-    //                 description: 'Project 2 description...'
-    //             },
-    //             3: {
-    //                 name: 'Project 3',
-    //                 country: 'India',
-    //                 state: 'Maharashtra',
-    //                 startDate: '2022-01-10',
-    //                 endDate: '2022-10-25',
-    //                 client: 'XYZ',
-    //                 description: 'Project 3 description...'
-    //             },
-    //             4: {
-    //                 name: 'Project 4',
-    //                 country: 'India',
-    //                 state: 'Tamil Nadu',
-    //                 startDate: '2021-07-15',
-    //                 endDate: '2022-04-05',
-    //                 client: 'GHI',
-    //                 description: 'Project 4 description...'
-    //             },
-    //             5: {
-    //                 name: 'Project 5',
-    //                 country: 'India',
-    //                 state: 'West Bengal',
-    //                 startDate: '2020-09-01',
-    //                 endDate: '2021-06-20',
-    //                 client: 'JKL',
-    //                 description: 'Project 5 description...'
-    //             },
-    //         };
-
-    //         document.querySelectorAll('.project-item').forEach(item => {
-    //             item.addEventListener('click', () => {
-    //                 const projectId = item.getAttribute('data-project-id');
-    //                 const project = projects[projectId];
-    //                 projectDetails.innerHTML = `
-    //             <p><strong>Name:</strong> ${project.name}</p>
-    //             <p><strong>Country:</strong> ${project.country}</p>
-    //             <p><strong>State:</strong> ${project.state}</p>
-    //             <p><strong>Start Date:</strong> ${project.startDate}</p>
-    //             <p><strong>End Date:</strong> ${project.endDate}</p>
-    //             <p><strong>Client:</strong> ${project.client}</p>
-    //             <p><strong>Description:</strong> ${project.description}</p>
-    //         `;
-    //                 projectModal.style.display = 'block';
-    //             });
-    //         });
-
-    //         closeModalElements.forEach(close => {
-    //             close.addEventListener('click', () => {
-    //                 projectModal.style.display = 'none';
-    //                 addProjectModal.style.display = 'none';
-    //                 addSectorModal.style.display = 'none';
-    //             });
-    //         });
-
-    //         addProjectButton.addEventListener('click', () => {
-    //             addProjectModal.style.display = 'block';
-    //         });
-
-    //         newProjectForm.addEventListener('submit', (event) => {
-    //             event.preventDefault();
-
-    //             const newProject = {
-    //                 name: document.getElementById('project-name').value,
-    //                 country: document.getElementById('project-country').value,
-    //                 state: document.getElementById('project-state').value,
-    //                 startDate: document.getElementById('project-start-date').value,
-    //                 endDate: document.getElementById('project-end-date').value,
-    //                 client: document.getElementById('project-client').value,
-    //                 description: document.getElementById('project-description').value,
-    //             };
-
-    //             const newProjectId = Object.keys(projects).length + 1;
-    //             projects[newProjectId] = newProject;
-
-    //             const newProjectItem = document.createElement('div');
-    //             newProjectItem.classList.add('project-item');
-    //             newProjectItem.setAttribute('data-project-id', newProjectId);
-    //             newProjectItem.innerHTML = `
-    //         <h4>${newProject.name}</h4>
-    //         <p>Start Date: ${newProject.startDate}</p>
-    //         <p>End Date: ${newProject.endDate}</p>
-    //     `;
-
-    //             newProjectItem.addEventListener('click', () => {
-    //                 projectDetails.innerHTML = `
-    //             <p><strong>Name:</strong> ${newProject.name}</p>
-    //             <p><strong>Country:</strong> ${newProject.country}</p>
-    //             <p><strong>State:</strong> ${newProject.state}</p>
-    //             <p><strong>Start Date:</strong> ${newProject.startDate}</p>
-    //             <p><strong>End Date:</strong> ${newProject.endDate}</p>
-    //             <p><strong>Client:</strong> ${newProject.client}</p>
-    //             <p><strong>Description:</strong> ${newProject.description}</p>
-    //         `;
-    //                 projectModal.style.display = 'block';
-    //             });
-
-    //             document.querySelector('.project-list').appendChild(newProjectItem);
-    //             addProjectModal.style.display = 'none';
-    //         });
-
-    //         addSectorButton.addEventListener('click', () => {
-    //             addSectorModal.style.display = 'block';
-    //         });
-
-    //         newSectorForm.addEventListener('submit', (event) => {
-    //             event.preventDefault();
-
-    //             const sectorName = document.getElementById('sector-name').value;
-    //             const subSectorName = document.getElementById('sub-sector-name').value;
-
-    //             const newSectorItem = document.createElement('div');
-    //             newSectorItem.classList.add('sector-item');
-    //             newSectorItem.innerHTML = `
-    //         <h4>${sectorName}</h4>
-    //         <p>${subSectorName}</p>
-    //     `;
-    //             document.querySelector('.sector-list').appendChild(newSectorItem);
-    //             addSectorModal.style.display = 'none';
-    //         });
-    //     });
-    // </script>
 </head>
 <body>
     <header class="App-header">
-        <img src="iitklogo.png" alt="IIT Kanpur Logo" class="logoimage">
+        <img src="{% static 'profile/iitklogo.png' %}" alt="IIT Kanpur Logo" class="logoimage">
         <div class="logo">Office of Research and Development IIT Kanpur</div>
         <a href="{% url 'project-list' %}" class="btn">Dashboard</a>         
     </header>
-    <section id="about">
-        <h3>About</h3>
         {% block content %}
 <div class="container">
     <h1>Profile</h1>
     <form id="registrationForm" method="post" action="{% url 'registration' %}">
         {% csrf_token %}
         {% if already_registered %}
-        <p>You have already registered.</p>
-        <p><strong>Name:</strong> {{ form.name }}</p>
-        <p><strong>Email:</strong> {{ user.email }}</p>
-        <p><strong>User Type:</strong> {{ form.get_user_type_display }}</p>
-        <p><strong>Gender:</strong> {{ form.get_gender_display }}</p>
-        <p><strong>State:</strong> {{ form.state }}</p>
-        <p><strong>City:</strong> {{ form.city }}</p>
-        <p><strong>Pincode:</strong> {{ form.pincode }}</p>
-        <p><strong>Course:</strong> {{ form.course }}</p>
-        <p><strong>Firm Expertise:</strong> {{ form.firm_expertise }}</p>
-        <p><strong>Sector Expertise:</strong> {{ form.sector_expertise }}</p>
-        <p><strong>Subsector Expertise:</strong> {{form.subsector_expertise }}</p>
-        <p><strong>Past Projects:</strong> {{ form.past_projects }}</p>
-        
+        <section id="about">
+            <h2>About</h2>
+            <hr>
+            <form>
+                <label for="dord-id">DORD ID</label>
+                <input type="text" id="dord-id" name="dord-id" value="2530123" readonly>
+    
+                <label for="full-name">Full Name</label>
+                {{ form.name }}
+
+                <label for="User-type">User type</label>
+                <input type="text" id="email" name="genter" value="{{form.get_gender_display}}" readonly>
+
+                <label for="gender">Gender</label>
+                <input type="text" id="email" name="genter" value="{{form.gender_display}}" readonly>
+
+
+                <label for="email">Email</label>
+                <input type="text" id="email" name="email" value="{{user.email}}" readonly>
+    
+                <label for="description">Description</label>
+                {{form.firm_expertise}}
+
+            </form>
+        </section>
+
+        <section id="sector-expertise">
+            <h2>Sector Expertise</h2>
+            <hr>
+            <div class="sector-list">
+                <div class="sector-item">
+                    <label for="secotr">Sector</label>
+                    {{form.sector_expertise}}
+
+                    <label for="subsector">Sub Sector</label>
+                    {{form.subsector_expertise}} 
+                </div>
+            </div>
+        </section> 
+        <section id="past-projects">
+            <h2>Past Projects</h2>
+            <hr>
+            <div class="project-list">
+
+            <label for="full-name">State</label>
+            {{ form.state }} 
+            <label for="full-name">City</label>
+            {{ form.city }}
+
+            <label for="pincode">Pincode</label>
+            {{ form.pincode }} 
+            <label for="full-name">Course</label>
+            {{ form.course }}
+
+            <label for="full-name">State</label>
+            {{ form.past_projects }} 
+
+
+    
+        </section>
+
+             
         {% else %}
         {{ form.as_p }}
         <button type="submit">Submit</button>
