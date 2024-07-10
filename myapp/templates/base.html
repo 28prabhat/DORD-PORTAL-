@@ -347,6 +347,11 @@
 
         </a>
         
+        <form action="{% url 'save_projects' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" id="logoutButton" class="logout">Add Projects</button>
+        </form>
+        
         
         <!-- <a href="{% url 'add-project' %}" class="btn btn-primary mb-3">Add New Project</a> -->
     </div>

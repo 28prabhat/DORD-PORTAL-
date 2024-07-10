@@ -1,15 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{% if user.is_authenticated and user.is_staff %}
 
-        <form action="{% url 'save_projects' %}" method="post">
-            {% csrf_token %}
-            <button type="submit" id="logoutButton" class="logout-btn">Add Projects</button>
-        </form>
-        
-    {% endif %}
-       
 <h2 style="text-align: center; font-weight: 600;">Project Dashboard</h2>
 <div class="container">
     {% for project in projects %}
@@ -30,7 +22,7 @@
         <p class="card-text"><strong>Country:</strong> {{ project.country }}</p>
         <p class="card-text"><strong>Open to:</strong> {{ project.open_to }}</p>
         <p class="card-text"><strong>Duration:</strong> {{ project.duration }}</p>
-        <p class="card-text"><strong>Funding Agency:</strong> {{ project.sponsor }}</p>
+        <p class="card-text"><strong>Sponsor:</strong> {{ project.sponsor }}</p>
         <p class="card-text"><strong>Deadline:</strong> {{ project.deadline }}</p>
         <p class="card-text"><strong>Budget:</strong> {{ project.budget }}</p>
         <div class="buttons">
@@ -40,6 +32,62 @@
         </div>
     </div>
     {% endfor %}
+
+    <div class="modal" id="filterModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Filter Options</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <!-- Filter by Title -->
+                    <span style="margin-right: 10px; font-weight: 600; font-size: 20px;">Title:</span>
+                    <br>
+                    {% for project in projects %}
+                    <label><input type="checkbox" class="filter-checkbox" data-filter="{{ project.title }}"> {{ project.title }}</label>
+                    {% endfor %}
+                    <br>
+                    <!-- Filter by Supervisor -->
+                    <span style="margin-right: 10px; font-weight: 600; font-size: 20px;">Supervisor:</span>
+                    <br>
+                    {% for project in projects %}
+                    <label><input type="checkbox" class="filter-checkbox" data-filter="{{ project.supervisor }}"> {{ project.supervisor }}</label>
+                    {% endfor %}
+                    <br>
+                    <!-- Filter by Tags -->
+                    <span style="margin-right: 10px; font-weight: 600; font-size: 20px;">Tags:</span>
+                    <br>
+                    {% for project in projects %}
+                    <label><input type="checkbox" class="filter-checkbox" data-filter="{{ project.tags }}"> {{ project.tags }}</label>
+                    {% endfor %}
+                    <br>
+                    <!-- Filter by Tags -->
+                    <span style="margin-right: 10px; font-weight: 600; font-size: 20px;">Country:</span>
+                    <br>
+                    <label><input type="checkbox" class="filter-checkbox" data-filter="india"> India </label>
+                    <label><input type="checkbox" class="filter-checkbox" data-filter="srilanka"> Sri Lanka </label>
+                    <br>
+                    <!-- Filter by Tags -->
+                    <span style="margin-right: 10px; font-weight: 600; font-size: 20px;">Open To:</span>
+                    <br>
+                    {% for project in projects %}
+                    <label><input type="checkbox" class="filter-checkbox" data-filter="{{ project.open_to }}"> {{ project.open_to }}</label>
+                    {% endfor %}
+                    <br>
+                    <!-- Filter by Tags -->
+                    <span style="margin-right: 10px; font-weight: 600; font-size: 20px;">Duration:</span>
+                    <br>
+                    {% for project in projects %}
+                    <label><input type="checkbox" class="filter-checkbox" data-filter="{{ project.duration }}"> {{ project.duration }}</label>
+                    {% endfor %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="applyFiltersBtn">Apply Filters</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 
@@ -86,6 +134,56 @@
             isBookmarkedTabClicked = true;
         }
     });
+
+
+
+    document.getElementById("filter").addEventListener("click", function () {
+        $('#filterModal').modal('show');
+    });
+
+    document.getElementById("applyFiltersBtn").addEventListener("click", function () {
+        const selectedFilters = [];
+
+        // Gathering selected tag filters (assuming the tags are space-separated)
+        document.querySelectorAll('.filter-checkbox:checked').forEach(function (checkbox) {
+            selectedFilters.push(checkbox.getAttribute('data-filter'));
+        });
+
+        applyFilters(selectedFilters);
+    });
+
+    function applyFilters(selectedFilters) {
+        const cards = document.querySelectorAll('.card');
+
+        cards.forEach(card => {
+            // Extract the project attributes from the card
+            const title = card.querySelector('h2').textContent;
+            const supervisor = card.querySelector('h4').textContent;
+            const tags = Array.from(card.querySelectorAll('.tag')).map(tag => tag.textContent.toLowerCase());
+            const country = card.querySelector('.card-text:nth-of-type(1)').textContent.toLowerCase();
+            const openTo = card.querySelector('.card-text:nth-of-type(2)').textContent.toLowerCase();
+            const duration = card.querySelector('.card-text:nth-of-type(3)').textContent.toLowerCase();
+            const sponsor = card.querySelector('.card-text:nth-of-type(4)').textContent.toLowerCase();
+            const deadline = card.querySelector('.card-text:nth-of-type(5)').textContent.toLowerCase();
+            const budget = card.querySelector('.card-text:nth-of-type(6)').textContent.toLowerCase();
+
+            // Perform filtering based on project attributes
+            const shouldShowCard = selectedFilters.some(filter =>
+                title.includes(filter) ||
+                supervisor.includes(filter) ||
+                tags.some(tag => tag.includes(filter)) ||
+                country.includes(filter) ||
+                openTo.includes(filter) ||
+                duration.includes(filter) ||
+                sponsor.includes(filter) ||
+                deadline.includes(filter) ||
+                budget.includes(filter)
+            );
+
+            // Adjust card visibility based on filter result
+            card.style.display = shouldShowCard ? 'block' : 'none';
+        });
+    }
 </script>
 
 {% endblock %}
