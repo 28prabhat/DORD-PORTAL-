@@ -251,4 +251,3 @@ def save_projects(request):
             return HttpResponse(f'Error importing projects: {str(e)}')
     else:
         return HttpResponse('Invalid request method.')
-    
