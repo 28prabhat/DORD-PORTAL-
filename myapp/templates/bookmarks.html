@@ -20,8 +20,11 @@
             {% endif %}
         </button> -->
         <a href="{% url 'bookmark_project' project_id=project.id %}" >
-        <button class="btn">
-            Unbookmark
+        <button class="bookmark-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+            </svg>
         </button>
         </a>
         <h2>{{ project.title }}</h2>
@@ -80,5 +83,16 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.querySelectorAll('.bookmark-btn').forEach(btn => {
+        btn.addEventListener('click', function () {
+            // Toggle fill of the bookmark icon
+            const svg = this.querySelector('svg');
+            svg.setAttribute('fill', svg.getAttribute('fill') === 'none' ? 'currentColor' : 'none');
+            // Here you would also add logic to actually bookmark the project
+        });
+    });
+</script>
 
 {% endblock %}

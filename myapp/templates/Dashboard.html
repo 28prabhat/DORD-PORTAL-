@@ -20,11 +20,17 @@
                 <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
             </svg>
         </button> -->
-        <button class="bookmark-btn" data-project-id="{{ project.id }}">
+        <button data-project-id="{{ project.id }}" class="bookmark-btn">
             {% if user.is_authenticated and project in user.userprofile.bookmarked_projects.all %}
-                Unbookmark
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+            </svg>
             {% else %}
-                Bookmark
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+            </svg>
             {% endif %}
         </button>
         <h2>{{ project.title }}</h2>
@@ -41,7 +47,7 @@
         <p class="card-text"><strong>Deadline:</strong> {{ project.deadline }}</p>
         <p class="card-text"><strong>Budget:</strong> {{ project.budget }}</p>
         <div class="buttons">
-            <a href="#" class="btn">Details</a>
+            <!-- <a href="{% url 'projectdetail' project_id=project.id %}" class="btn">Details</a> -->
             <a href="{% url 'projectdetail' project_id=project.id %}" class="btn">Apply Now</a>
 
         </div>
@@ -87,15 +93,15 @@
 
 <script>
 
-    // // Add functionality to bookmark buttons
-    // document.querySelectorAll('.bookmark-btn').forEach(btn => {
-    //     btn.addEventListener('click', function () {
-    //         // Toggle fill of the bookmark icon
-    //         const svg = this.querySelector('svg');
-    //         svg.setAttribute('fill', svg.getAttribute('fill') === 'none' ? 'currentColor' : 'none');
-    //         // Here you would also add logic to actually bookmark the project
-    //     });
-    // });
+    
+    document.querySelectorAll('.bookmark-btn').forEach(btn => {
+        btn.addEventListener('click', function () {
+            // Toggle fill of the bookmark icon
+            const svg = this.querySelector('svg');
+            svg.setAttribute('fill', svg.getAttribute('fill') === 'none' ? 'currentColor' : 'none');
+            // Here you would also add logic to actually bookmark the project
+        });
+    });
 
     // // Add functionality to show bookmarked cards and style the Bookmarked Projects tab
 
