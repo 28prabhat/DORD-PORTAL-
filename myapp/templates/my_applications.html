@@ -12,8 +12,8 @@
 <div class="container">
 {% for app in application_data %}
 <div class="card">
-    <!-- <h2>{{app.title}}</h2>
-    <h4>{{app.superviser}}</h4> -->
+    <h2>{{app.title}}</h2>
+    <h4>{{app.superviser}}</h4>
     <div class="tag">
         <h5 class="card-title">{{ app.title }}</h5>
         <h6 class="card-subtitle mb-2 text-muted">Supervisor: {{ app.superviser }}</h6>
@@ -23,12 +23,12 @@
     <p class="card-text"><strong>Country:</strong> {{ app.country }}</p>
     <p class="card-text"><strong>Open to:</strong> {{ app.open_to }}</p>
     <p class="card-text"><strong>Duration:</strong> {{ app.duration }}</p>
-    <p class="card-text"><strong>Funding Agency:</strong> {{ app.sponsor }}</p>
+    <p class="card-text"><strong>Sponsor:</strong> {{ app.sponsor }}</p>
     <p class="card-text"><strong>Deadline:</strong> {{ app.deadline }}</p>
     <p class="card-text"><strong>Budget:</strong> {{ app.budget }}</p>
     <div class="button">
-        <a href="{% url 'projectdetail' project_id=app.id %}" class="btn">Details</a>
-        {% comment %} <a href="{% url 'projectdetail' project_id=app.id %}" class="btn">Apply Now</a> {% endcomment %}
+        <a href="#" class="btn">Details</a>
+        {% comment %} <a href="{% url 'projectdetail' project_id=project.id %}" class="btn">Apply Now</a> {% endcomment %}
 
     </div>
 </div>

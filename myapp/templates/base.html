@@ -257,9 +257,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
-        document.getElementById("logoutButton").onclick = function () {
-            window.location.href = "{% url 'signup' %}";
-        };
+
     </script>
 </head>
 
@@ -273,7 +271,7 @@
     </div>
 
     <div class="navbar">
-        <a href="#" class="item" id="filterButton">
+        <a href="#" class="item filter" id="filter">
             <svg xmlns="http://www.w3.org/2000/svg" width="50" height="40" viewBox="0 0 50 40" fill="none">
                 <g clip-path="url(#clip0_7_21)">
                     <path d="M0 0V8H50V0H0ZM0 16V24H50V16H0ZM0 32V40H50V32H0Z" fill="#454545" />
@@ -341,13 +339,7 @@
                     fill="black" />
             </svg>
         </a>
-        <a href="{% url 'logout' %}" class="logout-btn">
-            <button id="logoutButton" class="logout">Logout</button>
-
-
-        </a>
-        
-        
+        <button id="logoutButton" class="logout">Logout</button>
         <!-- <a href="{% url 'add-project' %}" class="btn btn-primary mb-3">Add New Project</a> -->
     </div>
 
@@ -359,7 +351,7 @@
 
     <script>
         document.getElementById("logoutButton").onclick = function () {
-            window.location.href = "landing.html";
+            window.location.href = "{% url 'logindetails' %}";
         };
         // Function to search projects based on title, type and tags
         document.querySelector('.search-bar input').addEventListener('input', function () {
@@ -378,6 +370,30 @@
                 }
             });
         });
+
+        // document.getElementById("filter").addEventListener("click", function () {
+        //     $('#filterModal').modal('show');
+        // });
+
+        // document.getElementById("applyFiltersBtn").addEventListener("click", function () {
+        //     const selectedFilters = [];
+        //     document.querySelectorAll('.filter-checkbox:checked').forEach(function (checkbox) {
+        //         selectedFilters.push(checkbox.getAttribute('data-filter'));
+        //     });
+
+        //     applyFilters(selectedFilters);
+        // });
+
+        // function applyFilters(selectedFilters) {
+        //     const cards = document.querySelectorAll('.card');
+
+        //     cards.forEach(card => {
+        //         const tags = Array.from(card.querySelectorAll('.tag')).map(tag => tag.textContent.toLowerCase());
+        //         const shouldShowCard = selectedFilters.some(filter => tags.includes(filter));
+
+        //         card.style.display = shouldShowCard ? 'block' : 'none';
+        //     });
+        // }
     </script>
 
 </body>
