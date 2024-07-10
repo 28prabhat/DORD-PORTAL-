@@ -136,53 +136,53 @@
 
 
 
-    document.getElementById("filter").addEventListener("click", function () {
-        $('#filterModal').modal('show');
-    });
+    // document.getElementById("filter").addEventListener("click", function () {
+    //     $('#filterModal').modal('show');
+    // });
 
-    document.getElementById("applyFiltersBtn").addEventListener("click", function () {
-        const selectedFilters = [];
+    // document.getElementById("applyFiltersBtn").addEventListener("click", function () {
+    //     const selectedFilters = [];
 
-        // Gathering selected tag filters (assuming the tags are space-separated)
-        document.querySelectorAll('.filter-checkbox:checked').forEach(function (checkbox) {
-            selectedFilters.push(checkbox.getAttribute('data-filter'));
-        });
+    //     // Gathering selected tag filters (assuming the tags are space-separated)
+    //     document.querySelectorAll('.filter-checkbox:checked').forEach(function (checkbox) {
+    //         selectedFilters.push(checkbox.getAttribute('data-filter'));
+    //     });
 
-        applyFilters(selectedFilters);
-    });
+    //     applyFilters(selectedFilters);
+    // });
 
-    function applyFilters(selectedFilters) {
-        const cards = document.querySelectorAll('.card');
+    // function applyFilters(selectedFilters) {
+    //     const cards = document.querySelectorAll('.card');
 
-        cards.forEach(card => {
-            // Extract the project attributes from the card
-            const title = card.querySelector('h2').textContent;
-            const supervisor = card.querySelector('h4').textContent;
-            const tags = Array.from(card.querySelectorAll('.tag')).map(tag => tag.textContent.toLowerCase());
-            const country = card.querySelector('.card-text:nth-of-type(1)').textContent.toLowerCase();
-            const openTo = card.querySelector('.card-text:nth-of-type(2)').textContent.toLowerCase();
-            const duration = card.querySelector('.card-text:nth-of-type(3)').textContent.toLowerCase();
-            const sponsor = card.querySelector('.card-text:nth-of-type(4)').textContent.toLowerCase();
-            const deadline = card.querySelector('.card-text:nth-of-type(5)').textContent.toLowerCase();
-            const budget = card.querySelector('.card-text:nth-of-type(6)').textContent.toLowerCase();
+    //     cards.forEach(card => {
+    //         // Extract the project attributes from the card
+    //         const title = card.querySelector('h2').textContent;
+    //         const supervisor = card.querySelector('h4').textContent;
+    //         const tags = Array.from(card.querySelectorAll('.tag')).map(tag => tag.textContent.toLowerCase());
+    //         const country = card.querySelector('.card-text:nth-of-type(1)').textContent.toLowerCase();
+    //         const openTo = card.querySelector('.card-text:nth-of-type(2)').textContent.toLowerCase();
+    //         const duration = card.querySelector('.card-text:nth-of-type(3)').textContent.toLowerCase();
+    //         const sponsor = card.querySelector('.card-text:nth-of-type(4)').textContent.toLowerCase();
+    //         const deadline = card.querySelector('.card-text:nth-of-type(5)').textContent.toLowerCase();
+    //         const budget = card.querySelector('.card-text:nth-of-type(6)').textContent.toLowerCase();
 
-            // Perform filtering based on project attributes
-            const shouldShowCard = selectedFilters.some(filter =>
-                title.includes(filter) ||
-                supervisor.includes(filter) ||
-                tags.some(tag => tag.includes(filter)) ||
-                country.includes(filter) ||
-                openTo.includes(filter) ||
-                duration.includes(filter) ||
-                sponsor.includes(filter) ||
-                deadline.includes(filter) ||
-                budget.includes(filter)
-            );
+    //         // Perform filtering based on project attributes
+    //         const shouldShowCard = selectedFilters.some(filter =>
+    //             title.includes(filter) ||
+    //             supervisor.includes(filter) ||
+    //             tags.some(tag => tag.includes(filter)) ||
+    //             country.includes(filter) ||
+    //             openTo.includes(filter) ||
+    //             duration.includes(filter) ||
+    //             sponsor.includes(filter) ||
+    //             deadline.includes(filter) ||
+    //             budget.includes(filter)
+    //         );
 
-            // Adjust card visibility based on filter result
-            card.style.display = shouldShowCard ? 'block' : 'none';
-        });
-    }
+    //         // Adjust card visibility based on filter result
+    //         card.style.display = shouldShowCard ? 'block' : 'none';
+    //     });
+    // }
 </script>
 
 {% endblock %}
