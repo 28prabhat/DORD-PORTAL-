@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
 <h2 style="text-align: center; font-weight: 600;">Project Dashboard</h2>
 <div class="container">
     {% for project in projects %}
@@ -41,36 +42,42 @@
                 </div>
                 <div class="modal-body">
                     <!-- Filter by Title -->
-                    <span style="margin-right: 10px; font-weight: 600; font-size: 20px;">Title</span>
+                    <span style="margin-right: 10px; font-weight: 600; font-size: 20px;">Title:</span>
+                    <br>
                     {% for project in projects %}
                     <label><input type="checkbox" class="filter-checkbox" data-filter="{{ project.title }}"> {{ project.title }}</label>
                     {% endfor %}
                     <br>
                     <!-- Filter by Supervisor -->
-                    <span style="margin-right: 10px; font-weight: 600; font-size: 20px;">Supervisor</span>
+                    <span style="margin-right: 10px; font-weight: 600; font-size: 20px;">Supervisor:</span>
+                    <br>
                     {% for project in projects %}
                     <label><input type="checkbox" class="filter-checkbox" data-filter="{{ project.supervisor }}"> {{ project.supervisor }}</label>
                     {% endfor %}
                     <br>
                     <!-- Filter by Tags -->
-                    <span style="margin-right: 10px; font-weight: 600; font-size: 20px;">Tags</span>
+                    <span style="margin-right: 10px; font-weight: 600; font-size: 20px;">Tags:</span>
+                    <br>
                     {% for project in projects %}
                     <label><input type="checkbox" class="filter-checkbox" data-filter="{{ project.tags }}"> {{ project.tags }}</label>
                     {% endfor %}
                     <br>
                     <!-- Filter by Tags -->
-                    <span style="margin-right: 10px; font-weight: 600; font-size: 20px;">Country</span>
+                    <span style="margin-right: 10px; font-weight: 600; font-size: 20px;">Country:</span>
+                    <br>
                     <label><input type="checkbox" class="filter-checkbox" data-filter="india"> India </label>
                     <label><input type="checkbox" class="filter-checkbox" data-filter="srilanka"> Sri Lanka </label>
                     <br>
                     <!-- Filter by Tags -->
-                    <span style="margin-right: 10px; font-weight: 600; font-size: 20px;">Open To</span>
+                    <span style="margin-right: 10px; font-weight: 600; font-size: 20px;">Open To:</span>
+                    <br>
                     {% for project in projects %}
                     <label><input type="checkbox" class="filter-checkbox" data-filter="{{ project.open_to }}"> {{ project.open_to }}</label>
                     {% endfor %}
                     <br>
                     <!-- Filter by Tags -->
-                    <span style="margin-right: 10px; font-weight: 600; font-size: 20px;">Duration</span>
+                    <span style="margin-right: 10px; font-weight: 600; font-size: 20px;">Duration:</span>
+                    <br>
                     {% for project in projects %}
                     <label><input type="checkbox" class="filter-checkbox" data-filter="{{ project.duration }}"> {{ project.duration }}</label>
                     {% endfor %}
