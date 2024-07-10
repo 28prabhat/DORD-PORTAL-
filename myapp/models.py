@@ -81,7 +81,25 @@ class Project_store(models.Model):
         return self.title
 
 
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    bookmarked_projects = models.ManyToManyField(Project_store, blank=True, related_name='bookmarked_by')
 
+    def __str__(self):
+        return self.user.username
+
+# Ensure that each user has a UserProfile
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        UserProfile.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.userprofile.save()
 
 class ProjectApplication(models.Model):
     project = models.ForeignKey(Project_store, on_delete=models.CASCADE)

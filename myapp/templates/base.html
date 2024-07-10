@@ -112,9 +112,6 @@
         }
 
         .card {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-around;
             background: white;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -129,13 +126,11 @@
             text-align: center;
             font-size: 1.2em;
             font-weight: 600;
-            padding: 10px 20px;
         }
 
         .card h4 {
             text-align: center;
             font-size: 1em;
-            padding: 10px;
         }
 
         .card .tags {
@@ -262,9 +257,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
-        document.getElementById("logoutButton").onclick = function () {
-            window.location.href = "{% url 'signup' %}";
-        };
+
     </script>
 </head>
 
@@ -278,7 +271,7 @@
     </div>
 
     <div class="navbar">
-        <a href="#" class="item" id="filterButton">
+        <a href="#" class="item filter" id="filter">
             <svg xmlns="http://www.w3.org/2000/svg" width="50" height="40" viewBox="0 0 50 40" fill="none">
                 <g clip-path="url(#clip0_7_21)">
                     <path d="M0 0V8H50V0H0ZM0 16V24H50V16H0ZM0 32V40H50V32H0Z" fill="#454545" />
@@ -305,7 +298,7 @@
                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
             </svg>
         </div>
-        <a href="#" class="item">
+        <a href="{% url 'view_bookmarks' %}" class="item">
             <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
                 <path
                     d="M31.6667 30L35 31.6667V4.99999C35 3.16666 33.5 1.66666 31.6667 1.66666H14.9833C13.15 1.66666 11.6667 3.16666 11.6667 4.99999H28.3333C30.1667 4.99999 31.6667 6.49999 31.6667 8.33332V30ZM25 8.33332H8.33333C6.5 8.33332 5 9.83332 5 11.6667V38.3333L16.6667 33.3333L28.3333 38.3333V11.6667C28.3333 9.83332 26.8333 8.33332 25 8.33332Z"
@@ -346,18 +339,7 @@
                     fill="black" />
             </svg>
         </a>
-        <a href="{% url 'logout' %}" class="logout-btn">
-            <button id="logoutButton" class="logout">Logout</button>
-
-
-        </a>
-        
-        <form action="{% url 'save_projects' %}" method="post">
-            {% csrf_token %}
-            <button type="submit" id="logoutButton" class="logout">Add Projects</button>
-        </form>
-        
-        
+        <button id="logoutButton" class="logout">Logout</button>
         <!-- <a href="{% url 'add-project' %}" class="btn btn-primary mb-3">Add New Project</a> -->
     </div>
 
@@ -369,7 +351,7 @@
 
     <script>
         document.getElementById("logoutButton").onclick = function () {
-            window.location.href = "landing.html";
+            window.location.href = "{% url 'logindetails' %}";
         };
         // Function to search projects based on title, type and tags
         document.querySelector('.search-bar input').addEventListener('input', function () {
@@ -389,53 +371,29 @@
             });
         });
 
-        document.getElementById("filter").addEventListener("click", function () {
-        $('#filterModal').modal('show');
-    });
+        // document.getElementById("filter").addEventListener("click", function () {
+        //     $('#filterModal').modal('show');
+        // });
 
-    document.getElementById("applyFiltersBtn").addEventListener("click", function () {
-        const selectedFilters = [];
+        // document.getElementById("applyFiltersBtn").addEventListener("click", function () {
+        //     const selectedFilters = [];
+        //     document.querySelectorAll('.filter-checkbox:checked').forEach(function (checkbox) {
+        //         selectedFilters.push(checkbox.getAttribute('data-filter'));
+        //     });
 
-        // Gathering selected tag filters (assuming the tags are space-separated)
-        document.querySelectorAll('.filter-checkbox:checked').forEach(function (checkbox) {
-            selectedFilters.push(checkbox.getAttribute('data-filter'));
-        });
+        //     applyFilters(selectedFilters);
+        // });
 
-        applyFilters(selectedFilters);
-    });
+        // function applyFilters(selectedFilters) {
+        //     const cards = document.querySelectorAll('.card');
 
-    function applyFilters(selectedFilters) {
-        const cards = document.querySelectorAll('.card');
+        //     cards.forEach(card => {
+        //         const tags = Array.from(card.querySelectorAll('.tag')).map(tag => tag.textContent.toLowerCase());
+        //         const shouldShowCard = selectedFilters.some(filter => tags.includes(filter));
 
-        cards.forEach(card => {
-            // Extract the project attributes from the card
-            const title = card.querySelector('h2').textContent;
-            const supervisor = card.querySelector('h4').textContent;
-            const tags = Array.from(card.querySelectorAll('.tag')).map(tag => tag.textContent.toLowerCase());
-            const country = card.querySelector('.card-text:nth-of-type(1)').textContent.toLowerCase();
-            const openTo = card.querySelector('.card-text:nth-of-type(2)').textContent.toLowerCase();
-            const duration = card.querySelector('.card-text:nth-of-type(3)').textContent.toLowerCase();
-            const sponsor = card.querySelector('.card-text:nth-of-type(4)').textContent.toLowerCase();
-            const deadline = card.querySelector('.card-text:nth-of-type(5)').textContent.toLowerCase();
-            const budget = card.querySelector('.card-text:nth-of-type(6)').textContent.toLowerCase();
-
-            // Perform filtering based on project attributes
-            const shouldShowCard = selectedFilters.some(filter =>
-                title.includes(filter) ||
-                supervisor.includes(filter) ||
-                tags.some(tag => tag.includes(filter)) ||
-                country.includes(filter) ||
-                openTo.includes(filter) ||
-                duration.includes(filter) ||
-                sponsor.includes(filter) ||
-                deadline.includes(filter) ||
-                budget.includes(filter)
-            );
-
-            // Adjust card visibility based on filter result
-            card.style.display = shouldShowCard ? 'block' : 'none';
-        });
-    }
+        //         card.style.display = shouldShowCard ? 'block' : 'none';
+        //     });
+        // }
     </script>
 
 </body>

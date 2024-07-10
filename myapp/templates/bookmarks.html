@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2 style="text-align: center; font-weight: 600;">Project Dashboard</h2>
+<div class="container">
+    {% for project in bookmarked_projects %}
+    <div class="card">
+        <!-- <button class="bookmark-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+            </svg>
+        </button> -->
+        <!-- <button class="bookmark-btn" data-project-id="{{ project.id }}">
+            {% if user.is_authenticated and project in user.userprofile.bookmarked_projects.all %}
+                Unbookmark
+            {% else %}
+                Bookmark
+            {% endif %}
+        </button> -->
+        <a href="{% url 'bookmark_project' project_id=project.id %}" class="btn">
+        <button class="bookmark-btn" data-project-id="{{ project.id }}" >
+            Unbookmark
+        </button>
+        </a>
+        <h2>{{ project.title }}</h2>
+        <h4>{{ project.supervisor }}</h4>
+        <div class="tags">
+            <a href="#" class="tag">{{ project.tags }}</a>
+            <!-- <h5 class="card-title">{{ project.title }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Supervisor: {{ project.supervisor }}</h6> -->
+        </div>
+        <p class="card-text"><strong>Country:</strong> {{ project.country }}</p>
+        <p class="card-text"><strong>Open to:</strong> {{ project.open_to }}</p>
+        <p class="card-text"><strong>Duration:</strong> {{ project.duration }}</p>
+        <p class="card-text"><strong>Sponsor:</strong> {{ project.sponsor }}</p>
+        <p class="card-text"><strong>Deadline:</strong> {{ project.deadline }}</p>
+        <p class="card-text"><strong>Budget:</strong> {{ project.budget }}</p>
+        <div class="buttons">
+            <a href="#" class="btn">Details</a>
+            <a href="{% url 'projectdetail' project_id=project.id %}" class="btn">Apply Now</a>
+
+        </div>
+    </div>
+    {% endfor %}
+
+    <div class="modal" id="filterModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Filter Options</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <span style="margin-right: 10px; font-weight: 600; font-size: 20px;">Title</span>
+                    {% for project in projects %}
+                    <!-- Add filter options -->
+                    <label><input type="checkbox" class="filter-checkbox" data-filter="{{project.title}}"> {{project.title}}</label>
+                    {% endfor %}
+                </div>
+                <div class="modal-body">
+                    <span style="margin-right: 10px; font-weight: 600; font-size: 20px;">Supervisor</span>
+                    {% for project in projects %}
+                    <!-- Add filter options -->
+                    <label><input type="checkbox" class="filter-checkbox" data-filter="{{project.supervisor}}"> {{project.supervisor}}</label>
+                    {% endfor %}
+                </div>
+                <div class="modal-body">
+                    <span style="margin-right: 10px; font-weight: 600; font-size: 20px;">Tags</span>
+                    {% for project in projects %}
+                    <!-- Add filter options -->
+                    <label><input type="checkbox" class="filter-checkbox" data-filter="{{project.tags}}"> {{project.tags}}</label>
+                    {% endfor %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="applyFiltersBtn">Apply Filters</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

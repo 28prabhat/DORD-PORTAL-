@@ -251,3 +251,29 @@ def save_projects(request):
             return HttpResponse(f'Error importing projects: {str(e)}')
     else:
         return HttpResponse('Invalid request method.')
+
+
+from django.shortcuts import get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+from .models import Project_store, UserProfile
+
+@login_required
+def bookmark_project(request, project_id):
+    project = get_object_or_404(Project_store, id=project_id)
+    user_profile = request.user.userprofile
+
+    if project in user_profile.bookmarked_projects.all():
+        user_profile.bookmarked_projects.remove(project)
+        action = 'removed'
+    else:
+        user_profile.bookmarked_projects.add(project)
+        action = 'added'
+
+    # return JsonResponse({'action': action})
+    return redirect('view_bookmarks')
+@login_required
+def view_bookmarks(request):
+    user_profile = request.user.userprofile
+    bookmarked_projects = user_profile.bookmarked_projects.all()
+    return render(request, 'bookmarks.html', {'bookmarked_projects': bookmarked_projects})
