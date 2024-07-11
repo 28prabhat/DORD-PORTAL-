@@ -20,12 +20,22 @@
             {% endif %}
         </button> -->
         <a href="{% url 'bookmark_project' project_id=project.id %}" >
-        <button class="bookmark-btn">
+            {% if user.is_authenticated and project in user.userprofile.bookmarked_projects.all %}
+            <button class="bookmark-btn">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
             </svg>
-        </button>
+            </button>
+            {% else %}
+            <button class="bookmark-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+                </svg>
+                </button>
+            
+            {% endif %}
         </a>
         <h2>{{ project.title }}</h2>
         <h4>{{ project.supervisor }}</h4>

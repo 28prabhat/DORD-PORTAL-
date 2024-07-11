@@ -52,31 +52,83 @@ def custom_login(request):
             return HttpResponse('Invalid login credentials')
     return render(request, 'login.html')
     
+# @login_required
+# def user_registration1(request):
+#     form=None
+#     try:
+#         user_registration = UserRegistration.objects.get(user=request.user)
+#         form = UserRegistrationForm(instance=user_registration)  # Populate form with existing data
+#         already_registered = True
+#     except UserRegistration.DoesNotExist:
+#         user_registration = None
+#         already_registered = False
+#         if request.method == 'POST':
+#             form = UserRegistrationForm(request.POST)
+#             if form.is_valid():
+#                 user_registration = form.save(commit=False)
+#                 user_registration.user = request.user
+#                 user_registration.save()
+#                 return redirect('profile') 
+#             # else:
+#             #     print(form.errors)  
+#     context = {
+#         'form': form,
+#         'already_registered': already_registered,
+#     }
+    
+#     return render(request, 'profile.html', context)
+
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from .models import UserRegistration
+from .forms import UserRegistrationForm
+
 @login_required
 def user_registration1(request):
-    form=None
+    form = None
+    already_registered = False
+    
     try:
         user_registration = UserRegistration.objects.get(user=request.user)
         form = UserRegistrationForm(instance=user_registration)  # Populate form with existing data
         already_registered = True
     except UserRegistration.DoesNotExist:
         user_registration = None
-        already_registered = False
-        if request.method == 'POST':
-            form = UserRegistrationForm(request.POST)
-            if form.is_valid():
-                user_registration = form.save(commit=False)
-                user_registration.user = request.user
-                user_registration.save()
-                return redirect('profile') 
-            # else:
-            #     print(form.errors)  
+    
+    if request.method == 'POST':
+        form = UserRegistrationForm(request.POST, instance=user_registration)
+        if form.is_valid():
+            user_registration = form.save(commit=False)
+            user_registration.user = request.user
+
+            # Append new data to existing fields
+            if user_registration.sector_expertise:
+                new_sectors = form.cleaned_data.get('sector_expertise')
+                if new_sectors:
+                    user_registration.sector_expertise += '\n' + new_sectors
+
+            if user_registration.subsector_expertise:
+                new_subsectors = form.cleaned_data.get('subsector_expertise')
+                if new_subsectors:
+                    user_registration.subsector_expertise += '\n' + new_subsectors
+
+            if user_registration.past_projects:
+                new_past_projects = form.cleaned_data.get('past_projects')
+                if new_past_projects:
+                    user_registration.past_projects += '\n' + new_past_projects
+
+            user_registration.save()
+            return redirect('profile')
+        # else:
+        #     print(form.errors)
+    
     context = {
         'form': form,
         'already_registered': already_registered,
     }
     
     return render(request, 'profile.html', context)
+
 
 # import datetime
 # import uuid
@@ -272,6 +324,51 @@ def bookmark_project(request, project_id):
 
     # return JsonResponse({'action': action})
     return redirect('view_bookmarks')
+@login_required
+def view_bookmarks(request):
+    user_profile = request.user.userprofile
+    bookmarked_projects = user_profile.bookmarked_projects.all()
+    return render(request, 'bookmarks.html', {'bookmarked_projects': bookmarked_projects})
+
+
+
+def feedback(request):
+    if request.method == 'POST':
+        form = FeedbackForm(request.POST)
+        if form.is_valid():
+            feedback = form.save(commit=False)
+            feedback.user = request.user
+            feedback.save()
+            return redirect('thankyou')  # Redirect to a thank-you page or any other page
+    else:
+        form = FeedbackForm()
+    
+    context = {
+        'form': form,
+    }
+    return render(request, 'feedback.html', context)
+
+def feedback_thank_you(request):
+    return render(request, 'thankyou.html')
+
+from django.shortcuts import get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+
+@login_required
+def bookmark_project(request, project_id):
+    project = get_object_or_404(Project_store, id=project_id)
+    user_profile = request.user.userprofile
+
+    if project in user_profile.bookmarked_projects.all():
+        user_profile.bookmarked_projects.remove(project)
+        action = 'removed'
+    else:
+        user_profile.bookmarked_projects.add(project)
+        action = 'added'
+
+    return redirect('project-list')
+
 @login_required
 def view_bookmarks(request):
     user_profile = request.user.userprofile

@@ -21,13 +21,18 @@ class Signup(UserCreationForm):
         return user
 
 class UserRegistrationForm(forms.ModelForm):
-    
     class Meta:
         model = UserRegistration
-        fields = ['user_type', 'name', 'firm_expertise', 'sector_expertise', 'subsector_expertise', 'past_projects', 'gender', 'state', 'city', 'pincode', 'course']
-        sector_expertise = forms.CharField(widget=forms.Textarea(attrs={'rows': 3}), required=False)
-        subsector_expertise = forms.CharField(widget=forms.Textarea(attrs={'rows': 3}), required=False)
-        past_projects = forms.CharField(widget=forms.Textarea(attrs={'rows': 5}), required=False)
+        fields = [
+            'user_type', 'name', 'firm_expertise', 'sector_expertise', 
+            'subsector_expertise', 'past_projects', 'gender', 'state', 
+            'city', 'pincode', 'course', 'email'
+        ]
+        widgets = {
+            'sector_expertise': forms.TextInput(attrs={'placeholder': 'Add new sector'}),
+            'subsector_expertise': forms.TextInput(attrs={'placeholder': 'Add new subsector'}),
+            'past_projects': forms.Textarea(attrs={'placeholder': 'Add new past projects'}),
+        }
     def save(self, commit=True):
         user_registration = super().save(commit=False)
         if commit:
@@ -46,3 +51,12 @@ class ProjectApplicationForm(forms.ModelForm):
     class Meta:
         model = ProjectApplication
         fields = ['remarks']
+
+
+
+
+class FeedbackForm(forms.ModelForm):
+    class Meta:
+        model = Feedback
+        fields = ['subject', 'message']
+

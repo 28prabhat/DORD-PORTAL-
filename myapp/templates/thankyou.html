@@ -1,0 +1,81 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You!</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            background: url('{% static 'landing/background.jpeg' %}')
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .logo {
+            max-width: 150px;
+            margin-bottom: 20px;
+        }
+        .thank-you {
+            font-size: 2rem;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+        .submission-details {
+            margin-bottom: 30px;
+        }
+        .details {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .message {
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+        .btn {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-top: 20px;
+            display: inline-block;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="{% static 'profile/iitklogo.png' %}" alt="IIT Kanpur Logo" class="logo">
+        <div class="thank-you">Thank You!</div>
+        <div class="submission-details">
+            <div class="details">Your Submission Details:</div>
+            <div class="message">
+                <p><strong>Name:</strong> {{user.username}}</p>
+                <p><strong>Email:</strong> {{user.email}}</p>
+                {% comment %} <p><strong>Message:</strong> {{feedback.message}}</p> {% endcomment %}
+            </div>
+        </div>
+        <p class="message">We appreciate your interest and will get back to you shortly.</p>
+        <a href="{% url 'project-list' %}" class="btn">Back to Home</a>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
