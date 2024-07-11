@@ -68,7 +68,7 @@ def user_registration1(request):
                 user_registration = form.save(commit=False)
                 user_registration.user = request.user
                 user_registration.save()
-                return redirect(reverse('profile')) 
+                return redirect('profile') 
             # else:
             #     print(form.errors)  
     context = {
