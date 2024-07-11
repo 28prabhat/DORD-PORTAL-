@@ -14,10 +14,12 @@
 <div class="card">
     <!-- <h2>{{app.title}}</h2>
     <h4>{{app.superviser}}</h4> -->
-    <div class="tag">
+    <h2>{{ app.title }}</h2>
+    <h4>{{ app.superviser }}</h4>
+    <!-- <div class="tag">
         <h5 class="card-title">{{ app.title }}</h5>
         <h6 class="card-subtitle mb-2 text-muted">Supervisor: {{ app.superviser }}</h6>
-    </div>
+    </div> -->
     <p class="card-text"><strong>Applied on:</strong> {{ app.applied_on }}</p>
     <p class="card-text"><strong>Remarks:</strong> {{ app.remarks }}</p>
     <p class="card-text"><strong>Country:</strong> {{ app.country }}</p>
@@ -26,12 +28,21 @@
     <p class="card-text"><strong>Funding Agency:</strong> {{ app.sponsor }}</p>
     <p class="card-text"><strong>Deadline:</strong> {{ app.deadline }}</p>
     <p class="card-text"><strong>Budget:</strong> {{ app.budget }}</p>
-    <div class="button">
+    <div style="text-align: center;" class="button">
         <a href="{% url 'projectdetail' project_id=app.id %}" class="btn">Details</a>
-        {% comment %} <a href="{% url 'projectdetail' project_id=app.id %}" class="btn">Apply Now</a> {% endcomment %}
 
     </div>
 </div>
+
+<style>
+    .btn{
+            background: #90E0EF;
+            color: #094A84;
+    } 
+    .btn:first-child:hover {
+            background-color: #5fcbdf;
+    }
+</style>
 {% endfor %}
 </div>
 {% else %}
