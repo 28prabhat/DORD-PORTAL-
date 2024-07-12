@@ -105,12 +105,12 @@ def user_registration1(request):
             if user_registration.sector_expertise:
                 new_sectors = form.cleaned_data.get('sector_expertise')
                 if new_sectors:
-                    user_registration.sector_expertise += '\n' + new_sectors
+                    user_registration.sector_expertise += '\,' + new_sectors
 
             if user_registration.subsector_expertise:
                 new_subsectors = form.cleaned_data.get('subsector_expertise')
                 if new_subsectors:
-                    user_registration.subsector_expertise += '\n' + new_subsectors
+                    user_registration.subsector_expertise += '\,' + new_subsectors
 
             if user_registration.past_projects:
                 new_past_projects = form.cleaned_data.get('past_projects')

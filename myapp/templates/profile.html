@@ -239,11 +239,11 @@
                     </div>
                     <div class="form-field">
                         <label for="User-type">User type</label>
-                        <p>{{ form.instance.get_user_type_display }}</p>
+                        <p>{{ form.instance.user_type }}</p>
                     </div>
                     <div class="form-field">
                         <label for="gender">Gender</label>
-                        <p>{{ form.instance.get_gender_display }}</p>
+                        <p>{{ form.instance.gender }}</p>
                     </div>
                     <div class="form-field">
                         <label for="email">Email</label>
@@ -251,7 +251,7 @@
                     </div>
                     <div class="form-field">
                         <label for="description">Description</label>
-                        <p>{{ form.instance.firm_expertise }}</p>
+                        <p>{{ form.instance.firm_expertise}}</p>
                     </div>
                     <div class="form-field">
                         <label for="course">Course</label>
@@ -265,8 +265,8 @@
                     <div id="sector-fields">
                         <div class="form-field">
                             <label for="sector">Sector</label>
-                            <input type="text" id="sector" name="sector_expertise" value="">
-                            <p>{{ form.instance.sector_expertise|linebreaksbr }}</p>
+                            <input type="text" id="sector" name="sector_expertise" value="{{ form.instance.sector_expertise }}">
+                        
                         </div>
                     </div>
                     <button type="button" onclick="addSector()">Add Sector</button>
@@ -282,8 +282,8 @@
                     <div id="subsector-fields">
                         <div class="form-field">
                             <label for="subsector">Sub Sector</label>
-                            <input type="text" id="subsector" name="subsector_expertise" value="">
-                            <p>{{ form.instance.subsector_expertise|linebreaksbr }}</p>
+                            <input type="text" id="subsector" name="subsector_expertise" value="{{ form.instance.subsector_expertise }}">
+                        
                         </div>
                     </div>
                     <button type="button" onclick="addSubSector()">Add Sub Sector</button>
@@ -321,8 +321,8 @@
                     <div id="past-projects-fields">
                         <div class="form-field">
                             <label for="past-projects">Past Projects</label>
-                            <textarea id="past-projects" name="past_projects"></textarea>
-                            <p>{{ form.instance.past_projects|linebreaksbr }}</p>
+                            <textarea id="past-projects" name="past_projects">{{ form.instance.past_projects|linebreaksbr }}</textarea>
+                            
                         </div>
                     </div>
                     <button type="button" onclick="addPastProject()">Add Past Project</button>
