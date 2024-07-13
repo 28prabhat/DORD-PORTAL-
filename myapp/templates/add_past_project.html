@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Past Project</title>
+</head>
+<body>
+    <h2>Add Past Project</h2>
+    {% load static %}
+    <form method="post" action="{% url 'add_past_project' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Add Project</button>
+    </form>
+</body>
+</html>
+
+
+
+
+
+
+
+

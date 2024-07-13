@@ -1,219 +1,34 @@
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-   
 
+<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile & Edit Profile</title>
+
+    <title>User Registration</title>
+    <!-- Include Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background: url('{% static 'profile/background.jpg' %}') no-repeat center center;
-            background-size: cover;
+        .section-container {
+            margin-bottom: 20px;
         }
-        
-        .App-header {
-            background-color: #63a0fa;
-            height: 80px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 20px;
-            color: white;
-            box-sizing: border-box;
-        }
-        
-        .container h2 {
-            color: #01579b;
-        }
-        
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-        
-        .logoimage {
-            max-width: 60px;
-            max-height: 60px;
-        }
-        
-        .sign-in {
-            background-color: transparent;
-            border: 2px solid white;
-            color: white;
-            padding: 10px 20px;
-            cursor: pointer;
-            font-size: 1rem;
-            border-radius: 5px;
-        }
-        
-        .sign-in a {
-            color: white;
-            text-decoration: none;
-        }
-        
-        header {
-            background-color: #0073e6;
-            color: white;
-            text-align: center;
-            padding: 20px 0;
-            width: 100%;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 1000;
-        }
-        
-        #about {
-            margin-top: 50px;
-        }
-        
-        section {
-            background-color: white;
-            margin: 20px auto;
-            padding: 20px;
-            max-width: 800px;
-            box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
-            border-radius: 15px;
-            margin-top: 80px;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        
-        input,
-        textarea {
-            width: calc(100% - 20px);
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        
-        button {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #0073e6;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        
-        .btn {
-            background: #0277bd;
-            border: none;
-            border-radius: 25px;
-            color: white;
-            padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            width: 40%;
-            max-width: 120px;
-        }
-        
-        .btn:first-child {
-            background: #90E0EF;
-            color: #094A84;
-        }
-        
-        .btn:hover {
-            background: #01579b;
-        }
-        
-        .btn:first-child:hover {
-            background-color: #5fcbdf;
-        }
-        
-        button:hover {
-            background-color: #005bb5;
-        }
-        
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-        }
-        
-        .modal-content {
-            background-color: white;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-            max-width: 500px;
-            text-align: center;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
-        }
-        
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-        
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
-        
-        .project-item,
-        .sector-item {
-            cursor: pointer;
-        }
-        
-        .project-item:hover,
-        .sector-item:hover {
-            background-color: #f0f0f0;
-        }
-        
-        @media(max-width:500px) {
-            .logoimage {
-                display: none;
-            }
-        }
-        
         .form-field {
             margin-bottom: 10px;
         }
-        
-        .form-field label {
-            display: block;
-            font-weight: bold;
+        .btn-add {
+            margin-top: 10px;
         }
-        
-        .form-field input[type="text"],
-        .form-field textarea {
-            width: 100%;
-            padding: 5px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
+        .card-header {
+            background-color: #007bff;
+            color: white;
         }
-        .form-field {
-            margin-bottom: 15px;
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
         }
-        .form-field label {
-            display: block;
+        .btn-primary:hover {
+            background-color: #0056b3;
         }
-        
     </style>
-
 </head>
 <body>
     <header class="App-header">
@@ -221,191 +36,158 @@
         <div class="logo">Office of Research and Development IIT Kanpur</div>
         <a href="{% url 'project-list' %}" class="btn">Dashboard</a>         
     </header>
-    <div class="container">
-        <h1>Profile</h1>
-        <form id="registrationForm" method="post" action="{% url 'registration' %}">
-            {% csrf_token %}
-            {% if already_registered %}
-                <section id="about">
-                    <h2>About</h2>
-                    <hr>
-                    <div class="form-field">
-                        <label for="dord-id">DORD ID</label>
-                        <p>{{ form.instance.dord_number }}</p>
-                    </div>
-                    <div class="form-field">
-                        <label for="full-name">Full Name</label>
-                        <p>{{ form.instance.name }}</p>
-                    </div>
-                    <div class="form-field">
-                        <label for="User-type">User type</label>
-                        <p>{{ form.instance.user_type }}</p>
-                    </div>
-                    <div class="form-field">
-                        <label for="gender">Gender</label>
-                        <p>{{ form.instance.gender }}</p>
-                    </div>
-                    <div class="form-field">
-                        <label for="email">Email</label>
-                        <p>{{ user.email }}</p>
-                    </div>
-                    <div class="form-field">
-                        <label for="description">Description</label>
-                        <p>{{ form.instance.firm_expertise}}</p>
-                    </div>
-                    <div class="form-field">
-                        <label for="course">Course</label>
-                        <p>{{ form.instance.course }}</p>
-                    </div>
-                </section>
-    
-                <section id="sector-expertise">
-                    <h2>Sector Expertise</h2>
-                    <hr>
-                    <div id="sector-fields">
-                        <div class="form-field">
-                            <label for="sector">Sector</label>
-                            <input type="text" id="sector" name="sector_expertise" value="{{ form.instance.sector_expertise }}">
-                        
+
+    <div class="container mt-5">
+        <div class="card shadow-sm">
+            <div class="card-header">
+                <h2>User Registration</h2>
+            </div>
+            <div class="card-body">
+                <form id="registrationForm" method="post" action="{% url 'registration' %}">
+                    {% csrf_token %}
+                    {% if already_registered %}
+                        <div class="section-container" id="about">
+                            <h2>About</h2>
+                            <hr>
+                            <div class="form-field">
+                                <label for="dord-id">DORD ID</label>
+                                <p>{{ registration.dord_number }}</p>
+                            </div>
+                            <div class="form-field">
+                                <label for="full-name">Full Name</label>
+                                <p>{{ registration.name }}</p>
+                            </div>
+                            <div class="form-field">
+                                <label for="user-type">User type</label>
+                                <p>{{ registration.user_type }}</p>
+                            </div>
+                            <div class="form-field">
+                                <label for="gender">Gender</label>
+                                <p>{{ registration.gender }}</p>
+                            </div>
+                            <div class="form-field">
+                                <label for="email">Email</label>
+                                <p>{{ request.user.email }}</p>
+                            </div>
+                            <div class="form-field">
+                                <label for="firm_expertise">Description</label>
+                                <p>{{ registration.firm_expertise }}</p>
+                            </div>
+                            <div class="form-field">
+                                <label for="course">Course</label>
+                                <p>{{ registration.course }}</p>
+                            </div>
                         </div>
-                    </div>
-                    <button type="button" onclick="addSector()">Add Sector</button>
-                    <script>
-                        function addSector() {
-                            var container = document.getElementById("sector-fields");
-                            var input = document.createElement("input");
-                            input.type = "text";
-                            input.name = "sector_expertise";
-                            container.appendChild(input);
-                        }
-                    </script>
-                    <div id="subsector-fields">
-                        <div class="form-field">
-                            <label for="subsector">Sub Sector</label>
-                            <input type="text" id="subsector" name="subsector_expertise" value="{{ form.instance.subsector_expertise }}">
-                        
+
+                        <div class="section-container" id="sector-expertise">
+                            <h2>Sector Expertise</h2>
+                            <hr>
+                            <div class="form-field">
+                                <label for="sector">Sector</label>
+                                {% for sector in registration.sector_expertise.all %}
+                                    <p>{{ sector }}</p>
+                                {% endfor %}
+                            </div>
+                            <!-- <button type="button" onclick="window.location.href='{% url 'add_sector' %}'" class="btn btn-secondary btn-add">Add Sector</button> -->
+                            <a href="{% url 'add_sector' %}">
+                                <button type="button" class="btn btn-secondary btn-add">Add Sector</button>
+                            </a>
                         </div>
-                    </div>
-                    <button type="button" onclick="addSubSector()">Add Sub Sector</button>
-                    <script>
-                        function addSubSector() {
-                            var container = document.getElementById("subsector-fields");
-                            var input = document.createElement("input");
-                            input.type = "text";
-                            input.name = "subsector_expertise";
-                            container.appendChild(input);
-                        }
-                    </script>
-                </section>
-    
-                <section id="general-details">
-                    <h2>General Details</h2>
-                    <hr>
-                    <div class="form-field">
-                        <label for="state">State</label>
-                        <p>{{ form.instance.state }}</p>
-                    </div>
-                    <div class="form-field">
-                        <label for="city">City</label>
-                        <p>{{ form.instance.city }}</p>
-                    </div>
-                    <div class="form-field">
-                        <label for="pincode">Pincode</label>
-                        <p>{{ form.instance.pincode }}</p>
-                    </div>
-                </section>
-    
-                <section id="past-projects">
-                    <h2>Past Projects</h2>
-                    <hr>
-                    <div id="past-projects-fields">
-                        <div class="form-field">
-                            <label for="past-projects">Past Projects</label>
-                            <textarea id="past-projects" name="past_projects">{{ form.instance.past_projects|linebreaksbr }}</textarea>
-                            
+
+                        <div class="section-container" id="subsector-expertise">
+                            <h2>Sub Sector Expertise</h2>
+                            <hr>
+                            <div class="form-field">
+                                <label for="subsector">Sub Sector</label>
+                                {% for subsector in registration.subsector_expertise.all %}
+                                    <p>{{ subsector }}</p>
+                                {% endfor %}
+                            </div>
+                            <!-- <button type="button" onclick="window.location.href='{% url 'add_subsector' %}'" class="btn btn-secondary btn-add">Add Sub Sector</button> -->
+                            <a href="{% url 'add_subsector' %}">
+                                <button type="button" class="btn btn-secondary btn-add">Add Sub Sector</button>
+                            </a>
                         </div>
-                    </div>
-                    <button type="button" onclick="addPastProject()">Add Past Project</button>
-                    <script>
-                        function addPastProject() {
-                            var container = document.getElementById("past-projects-fields");
-                            var textarea = document.createElement("textarea");
-                            textarea.name = "past_projects";
-                            container.appendChild(textarea);
-                        }
-                    </script>
-                    <button type="submit" class="btn btn-primary">Update</button>
-                </section>
-    
-            {% else %}
-            <div class="container mt-5">
-                <div class="card shadow-sm">
-                    <div class="card-header bg-primary text-white">
-                        <h2>User Registration</h2>
-                    </div>
-                    <div class="card-body">
+
+                        <div class="section-container" id="past-projects">
+                            <h2>Past Projects</h2>
+                            <hr>
+                            <div class="form-field">
+                                <label for="past-projects">Past Projects</label>
+                                {% for project in request.user.userregistration.past_projects.all %}
+        <div class="col-md-4">
+          <div class="card mb-4">
+            <div class="card-body">
+              <h5 class="card-title">{{ project.project_name }}</h5>
+              <p class="card-text"><strong>Country:</strong> {{ project.country }}</p>
+              <p class="card-text"><strong>State:</strong> {{ project.state }}</p>
+              <p class="card-text"><strong>Start Date:</strong> {{ project.start_date }}</p>
+              <p class="card-text"><strong>End Date:</strong> {{ project.end_date }}</p>
+              <p class="card-text"><strong>Client:</strong> {{ project.client }}</p>
+              <p class="card-text"><strong>Funding Obtained:</strong> {{ project.funding_obtained }}</p>
+              <p class="card-text"><strong>Grant Number:</strong> {{ project.grant_number }}</p>
+              <p class="card-text"><strong>Details:</strong> {{ project.details }}</p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+                            </div>
+                            <a href="{% url 'add_past_project' %}">
+                            <button type="button" class="btn btn-secondary btn-add">Add Past Project</button>
+                        </a>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    {% else %}
                         <form method="post" action="{% url 'registration' %}">
                             {% csrf_token %}
                             <div class="form-group">
-                                {{ form.user_type.label_tag }} 
+                                {{ form.user_type.label_tag }}
                                 {{ form.user_type }}
                             </div>
                             <div class="form-group">
-                                {{ form.name.label_tag }} 
+                                <strong>{{ form.name.label_tag }}</strong>
                                 {{ form.name }}
                             </div>
                             <div class="form-group">
-                                {{ form.firm_expertise.label_tag }} 
-                                {{ form.firm_expertise }}
+                                {{ form.firm_expertise.label_tag }}
+                                {{ form.firm_expertise}}
                             </div>
                             <div class="form-group">
-                                {{ form.sector_expertise.label_tag }} 
-                                {{ form.sector_expertise }}
-                            </div>
-                            <div class="form-group">
-                                {{ form.subsector_expertise.label_tag }} 
-                                {{ form.subsector_expertise }}
-                            </div>
-                            <div class="form-group">
-                                {{ form.past_projects.label_tag }} 
-                                {{ form.past_projects }}
-                            </div>
-                            <div class="form-group">
-                                {{ form.gender.label_tag }} 
+                                {{ form.gender.label_tag }}
                                 {{ form.gender }}
                             </div>
                             <div class="form-group">
-                                {{ form.state.label_tag }} 
+                                {{ form.state.label_tag }}
                                 {{ form.state }}
                             </div>
                             <div class="form-group">
-                                {{ form.city.label_tag }} 
+                                {{ form.city.label_tag }}
                                 {{ form.city }}
                             </div>
                             <div class="form-group">
-                                {{ form.pincode.label_tag }} 
+                                {{ form.pincode.label_tag }}
                                 {{ form.pincode }}
                             </div>
                             <div class="form-group">
-                                {{ form.course.label_tag }} 
+                                {{ form.course.label_tag }}
                                 {{ form.course }}
                             </div>
                             <div class="form-group">
-                                {{ form.email.label_tag }} 
-                                {{ form.email }}
+                                {{ form.email.label_tag }}
+                                {{ form.email}}
                             </div>
                             <button type="submit" class="btn btn-primary">Register</button>
                         </form>
-                    </div>
-                </div>
+                    {% endif %}
+                </form>
             </div>
-            {% endif %}
-        </form>
+        </div>
     </div>
 
-    
+    <!-- Include Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

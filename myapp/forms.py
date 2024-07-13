@@ -23,22 +23,27 @@ class Signup(UserCreationForm):
 class UserRegistrationForm(forms.ModelForm):
     class Meta:
         model = UserRegistration
-        fields = [
-            'user_type', 'name', 'firm_expertise', 'sector_expertise', 
-            'subsector_expertise', 'past_projects', 'gender', 'state', 
-            'city', 'pincode', 'course', 'email'
-        ]
-        widgets = {
-            'sector_expertise': forms.TextInput(attrs={'placeholder': 'Add new sector'}),
-            'subsector_expertise': forms.TextInput(attrs={'placeholder': 'Add new subsector'}),
-            'past_projects': forms.Textarea(attrs={'placeholder': 'Add new past projects'}),
-        }
-    def save(self, commit=True):
-        user_registration = super().save(commit=False)
-        if commit:
-            user_registration.save()
-        return user_registration
+        fields = ['user_type', 'name', 'firm_expertise', 'gender', 'state', 'city', 'pincode', 'course', 'email']
 
+class SectorForm(forms.ModelForm):
+    class Meta:
+        model = Sector
+        fields = ['name']
+
+class SubsectorForm(forms.ModelForm):
+    class Meta:
+        model = Subsector
+        fields = ['sector', 'name']
+
+class PastProjectForm(forms.ModelForm):
+    class Meta:
+        model = PastProject
+        fields = ['project_name', 'country', 'state', 'start_date', 'end_date', 'client',
+                  'funding_obtained', 'grant_number', 'details']
+        widgets = {
+            'start_date': forms.DateInput(attrs={'type': 'date'}),
+            'end_date': forms.DateInput(attrs={'type': 'date'}),
+        }
 
 
 class ProjectForm(forms.ModelForm):

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Sector</title>
+</head>
+<body>
+    <h2>Add Sector</h2>
+    <form method="post" action="{% url 'add_sector' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.name.label_tag }}
+            {{ form.name }}
+        </div>
+        <button type="submit" class="btn btn-primary">Add Sector</button>
+    </form>
+</body>
+</html>
+

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Subsector</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: right;
+            padding: 10px 20px;
+            background-color: #0278bdd7;
+            border-bottom: 2px solid #000080;
+        }
+        .header .title {
+            margin-right: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #f3f3f7;
+        }
+        .header .subtitle {
+            font-size: 14px;
+            color: #f5f7f8;
+        }
+        .header img {
+            height: 80px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header">
+            <div>
+                <div class="title">Office of Research & Development</div>
+                <div class="subtitle">Indian Institute of Technology, Kanpur</div>
+            </div>
+            <img src="../static/dashboard/iitk logo white.png" alt="IIT Kanpur Logo">
+        </div>
+
+    </header>
+    
+    <h2>Add Subsector</h2>
+    <form method="post" action="{% url 'add_subsector' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.sector.label_tag }}
+            {{ form.sector }}
+        </div>
+        <div class="form-group">
+            {{ form.name.label_tag }}
+            {{ form.name }}
+        </div>
+        <button type="submit" class="btn btn-primary">Add Subsector</button>
+    </form>
+</body>
+</html>

@@ -5,6 +5,53 @@ from django.contrib.auth.models import User
 import datetime
 import uuid
 
+class PastProject(models.Model):
+    project_name = models.CharField(max_length=255)
+    country = models.CharField(max_length=100)
+    state = models.CharField(max_length=100)
+    start_date = models.DateField()
+    end_date = models.DateField()
+    client = models.CharField(max_length=255)
+    funding_obtained = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    grant_number = models.CharField(max_length=100)
+    details = models.TextField()
+
+    def __str__(self):
+        return self.project_name
+
+class Sector(models.Model):
+
+    SECTOR_CHOICES = [
+        ('agricultureNaturalResourcesRuralDevelopment', 'Agriculture,Natural Resources,Rural Development'),
+        ('audits', 'Audits'),
+        ('education', 'Education'),
+        ('energy', 'Energy'),
+        ('engineering', 'Engineering'),
+        ('finance', 'Finance'),
+        ('health', 'Health'),
+        ('industry&trade', 'Industry & Trade'),
+        ('information&communicationtechnology', 'Information & Communication Technology'),
+        ('marketing', 'Marketing'),
+        ('multisector', 'Multisector'),
+        ('publicsectormanagement', 'Public Sector Management'),
+        ('operation&supplychain', 'Operation and Supply Chain'),
+        ('socialenvironmentalandfinancialimpactassesments', 'social, environmental and financial impact assesments'),
+        ('sustainabilityengineering', 'Sustainability Engineering'),
+        ('transport', 'Transport'),
+        ('waterandotherinfrastructureservices', 'Water and other Infrastructure Services'),
+    ]
+    name = models.CharField(max_length=255,choices=SECTOR_CHOICES)
+
+    def __str__(self):
+        return self.name
+
+
+class Subsector(models.Model):
+    name = models.CharField(max_length=255)
+    sector = models.ForeignKey(Sector, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
 def generate_unique_id(user_type):
         current_year = datetime.datetime.now().year
         unique_id = uuid.uuid4().hex[:8].upper()  # Generate a unique 8-character hex string
@@ -28,9 +75,9 @@ class UserRegistration(models.Model):
     dord_number = models.CharField(max_length=100, blank=True)
     name = models.CharField(max_length=100)
     firm_expertise = models.TextField(blank=True)
-    sector_expertise = models.CharField(max_length=100)
-    subsector_expertise = models.CharField(max_length=100, blank=True)
-    past_projects = models.TextField(blank=True)
+    # sector_expertise = models.CharField(max_length=100,choices=SECTOR_CHOICES)
+    # subsector_expertise = models.CharField(max_length=100, blank=True)
+    # past_projects = models.TextField(blank=True)
     
     GENDER_CHOICES = [
         ('female', 'Female'),
@@ -44,6 +91,9 @@ class UserRegistration(models.Model):
     pincode = models.CharField(max_length=10)
     course = models.CharField(max_length=100, blank=True)
     email = models.EmailField()
+    past_projects = models.ManyToManyField(PastProject, blank=True)
+    sector_expertise = models.ManyToManyField(Sector)
+    subsector_expertise = models.ManyToManyField(Subsector, blank=True)
 
     def __str__(self):
         return self.name
@@ -54,8 +104,6 @@ class UserRegistration(models.Model):
         if not self.dord_number:
             self.dord_number = generate_unique_id(self.user_type)
         super(UserRegistration, self).save(*args, **kwargs)
-
-
 
 class Project_store(models.Model):
     title = models.CharField(max_length=200)
